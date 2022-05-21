@@ -21,7 +21,7 @@ export default createTheme({
          tab:{
             fontFamily:"Raleway !important",
             textTransform:"none !important",
-            fontWeight:700 ,
+            fontWeight:" 700!important",
             fontSize:"1rem !important",
             color:"white !important"
         },
