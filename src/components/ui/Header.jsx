@@ -10,8 +10,10 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom"
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
- 
- 
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+
+
 
 
 
@@ -32,10 +34,23 @@ function ElevationScroll(props) {
 const useStyles = makeStyles(theme => ({
   toolbarMargin: {
     ...theme.mixins.toolbar,
-    marginBottom: "3em"
+    marginBottom: "3em",
+    [theme.breakpoints.down("md")]:{
+      marginBottom:"2em"
+    }, 
+    [theme.breakpoints.down("xs")]:{
+      marginBottom:"1.25em"
+    }, 
   },
   logo: {
-    height: "7em",
+    height: "8em",
+  [theme.breakpoints.down("md")]:{
+    height:"6em"
+  }, 
+  [theme.breakpoints.down("xs")]:{
+    height:"5.5em"
+  }
+ 
   },
   containerLogo: {
     padding: "0 !important"
@@ -48,7 +63,7 @@ const useStyles = makeStyles(theme => ({
     ...theme.typography.tab,
     minWidth: 10,
     marginLeft: "25px",
-   
+
 
   },
   button: {
@@ -59,27 +74,30 @@ const useStyles = makeStyles(theme => ({
     height: "45px !important",
 
   },
-  menu:{
-    backgroundColor:"#0B72B9 !important",
-    color:"white !important",
-    borderRadius:"0px"
-   },
-   menuItem:{
+  menu: {
+    backgroundColor: "#0B72B9 !important",
+    color: "white !important",
+    borderRadius: "0px"
+  },
+  menuItem: {
     ...theme.typography.tab,
 
-    opacity:0.7,
-    "&:hover":{
-      opacity:1
+    opacity: 0.7,
+    "&:hover": {
+      opacity: 1
     }
-   }
+  }
 }))
 
 function Header() {
   const classes = useStyles();
+  const theme = useTheme();
   const [value, setValue] = useState('one');
+  const matchs=useMediaQuery(theme.breakpoints.down("lg"))
+  
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
- 
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -91,43 +109,53 @@ function Header() {
   const handleClose = () => {
     setAnchorEl(null);
   };
- 
-  const menueOptions=[
-  {name:"Services",Link:"/Services"},
-  {name:"custum software development",Link:"/customsoftware"},
-  {name:"mobile app development",Link:"/mobileapps"},
-  {name:"website development",Link:"/websites"},
+
+  const menueOptions = [
+    { name: "Services", Link: "/Services" },
+    { name: "custum software development", Link: "/customsoftware" },
+    { name: "mobile app development", Link: "/mobileapps" },
+    { name: "website development", Link: "/websites" },
 
 
-]
+  ]
   useEffect(() => {
-    if (window.localStorage.pathname === "/" && value !== 0) {
-      setValue(0)
-    }
-    else if (window.localStorage.pathname === "/services" && value !== 1) {
-      setValue(1)
-    }
-    else if (window.localStorage.pathname === "/revolution" && value !== 2) {
-      setValue(2)
-    }
-    else if (window.localStorage.pathname === "/about" && value !== 3) {
-      setValue(3)
-    }
-    else if (window.localStorage.pathname === "/contact" && value !== 4) {
-      setValue(4)
+    switch (window.location.pathname) {
+      case "/":
+        if (value !== 0) {
+          setValue(0)
+        }
+        break;
+      case "/services":
+        if (value !== 1) {
+          setValue(1)
+        }
+        break;
+      case "/revolution":
+        if (value !== 2) {
+          setValue(2)
+        }
+        break;
+      case "/about":
+        if (value !== 3) {
+          setValue(3)
+     
+        }
+        break;
+      case "/contact":
+        if (value !== 4) {
+          setValue(4)
+ 
+        }
+        break;
+      default:
+        break;
     }
   }, [value]);
 
-  return (
-    <>
-      <ElevationScroll >
-        <AppBar position="fixed">
-          <Toolbar disableGutters>
-            <Button component={Link} to='/' className={classes.containerLogo}>
-              <img src={logo} alt="compony logo" className={classes.logo} />
-            </Button>
-            <Tabs value={value} onChange={handleChange} className={classes.tabContainer}
-              indicatorColor='primary'>
+  const tabs =(
+    <React.Fragment>
+        <Tabs value={value} onChange={handleChange} className={classes.tabContainer}
+              indicatorColor='white'>
               <Tab label="Home" className={classes.tab} component={Link} to='/' />
               <Tab aria-controls={open ? 'basic-menu' : undefined} aria-expanded={open ? 'true' : undefined}
                 onMouseOver={handleClick} label="Services" className={classes.tab} component={Link} to='/services' />
@@ -141,19 +169,31 @@ function Header() {
               id="basic-menu"
               anchorEl={anchorEl}
               open={open}
-              classes={{paper:classes.menu}}
+              classes={{ paper: classes.menu }}
               onClose={handleClose}
               MenuListProps={{ onMouseLeave: handleClose }}
               elevation={0}
             >
-              {menueOptions.map((option,i)=>(
-                  <MenuItem key={option} classes={{root:classes.menuItem}} component={Link} to={option.Link} onClick={() => { handleClose(); setValue(1) }}>
-              {option.name}
-              </MenuItem>
+              {menueOptions.map((option, i) => (
+                <MenuItem key={option} classes={{ root: classes.menuItem }} component={Link} to={option.Link} onClick={() => { handleClose(); setValue(1) }}>
+                  {option.name}
+                </MenuItem>
               )
               )}
- 
+
             </Menu>
+    </React.Fragment>
+  )
+
+  return (
+    <>
+      <ElevationScroll >
+        <AppBar position="fixed">
+          <Toolbar disableGutters>
+            <Button component={Link} to='/' className={classes.containerLogo}>
+              <img src={logo} alt="compony logo" className={classes.logo} />
+            </Button>
+          {matchs ? null:tabs}
           </Toolbar>
         </AppBar>
       </ElevationScroll>
