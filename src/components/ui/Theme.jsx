@@ -6,7 +6,7 @@ const arcOrange = "#FFBA60";
 export default createTheme({
   palette: {
     common: {
-      blue: arcBlue,
+      blue: arcBlue ,
       orange: arcOrange
     },
     primary: {
@@ -21,7 +21,7 @@ export default createTheme({
          tab:{
             fontFamily:"Raleway !important",
             textTransform:"none !important",
-            fontWeight:" 700!important",
+            // fontWeight:" 700!important",
             fontSize:"1rem !important",
             color:"white !important"
         },
