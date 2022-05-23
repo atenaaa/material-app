@@ -121,22 +121,22 @@ const useStyles = makeStyles(theme => ({
  
 }))
 
-function Header() {
+function Header({setValue,value,selectedIndex,setSelectedIndex}) {
   const classes = useStyles();
   const theme = useTheme();
-  const [value, setValue] = useState(0);
+
   const iOS =
     typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const matchs = useMediaQuery(theme.breakpoints.down("md"))
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openMenue, setOpenMenue] = useState()
   const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+
 
 
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+     setValue(newValue);
 
   };
   const handleClick = (event) => {
