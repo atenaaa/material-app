@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, Fragment } from "react";
 import { AppBar } from "@mui/material";
 import { Toolbar } from "@mui/material";
@@ -103,16 +104,21 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: "transparent"
     }
   },
-  drawer:{
+  drawer: {
     backgroundColor: "#0B72B9 !important",
   },
-  draweItem:{
+  draweItem: {
     ...theme.typography.tab,
-    color:"white"
+    opacity: 0.7,
+
   },
-  draweItemEstimate:{
-    backgroundColor:  "#FFBA60"
-  }
+  draweItemEstimate: {
+    backgroundColor: "#FFBA60 !important"
+  },
+  draweItemSelected: {
+    opacity: 1
+  },
+ 
 }))
 
 function Header() {
@@ -125,12 +131,13 @@ function Header() {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openMenue, setOpenMenue] = useState()
   const [anchorEl, setAnchorEl] = useState(null);
-  
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
 
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
- 
+
   };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -143,63 +150,85 @@ function Header() {
     setOpenMenue(false)
 
   };
-  
+
 
   const menueOptions = [
-    { name: "Services", Link: "/Services" },
-    { name: "custum software development", Link: "/customsoftware" },
-    { name: "mobile app development", Link: "/mobileapps" },
-    { name: "website development", Link: "/websites" },
+    { name: "Services", Link: "/Services", activeIndex: 1, selectedIndex: 0 },
+    {
+      name: "custum software development", Link: "/customsoftware", activeIndex: 1,
+      selectedIndex: 1
+    },
+    {
+      name: "mobile app development", Link: "/mobileapps", activeIndex: 1,
+      selectedIndex: 2
+    },
+    {
+      name: "website development", Link: "/websites", activeIndex: 1,
+      selectedIndex: 3
+    },
+  ];
+
+  const routes = [
+    { name: "Home", link: "/", activeIndex: 0 },
+    {
+      name: "Services", link: "/Services", activeIndex: 1, ariaOwns: anchorEl ? "simple-menu" : undefined,
+      ariaPopup: anchorEl ? "true" : undefined,
+      mouseOver: event => handleClick(event)
+    },
+    { name: "Revolution", link: "/Revolution", activeIndex: 2 },
+    { name: "About Us", link: "/about", activeIndex: 3 },
+    { name: "Contact Us", link: "/contact", activeIndex: 4 }
+  ];
 
 
-  ]
+
+
+
+
+
   useEffect(() => {
-    switch (window.location.pathname) {
-      case "/":
-        if (value !== 0) {
-          setValue(0)
-        }
-        break;
-      case "/services":
-        if (value !== 1) {
-          setValue(1)
-        }
-        break;
-      case "/revolution":
-        if (value !== 2) {
-          setValue(2)
-        }
-        break;
-      case "/about":
-        if (value !== 3) {
-          setValue(3)
+    [...menueOptions, ...routes].forEach(route => {
+      switch (window.location.pathname) {
+        case `${route.link}`:
+          if (value !== route.activeIndex) {
+            setValue(route.activeIndex);
+            if (
+              route.selectedIndex &&
+              route.selectedIndex !== selectedIndex
+            ) {
+              setSelectedIndex(route.selectedIndex);
+            }
+          }
+          break;
+        case "/estimate":
+          setValue(5);
+          break;
+        default:
+          break;
+      }
 
-        }
-        break;
-      case "/contact":
-        if (value !== 4) {
-          setValue(4)
 
-        }
-        break;
-      default:
-        break;
-    }
-  }, [value]);
+    })
+
+  }, [value, menueOptions, selectedIndex, routes]);
 
   const tabs = (
     <React.Fragment>
       <Tabs value={value} onChange={handleChange} className={classes.tabContainer}
         indicatorColor='secondary'>
-        <Tab label="Home" className={classes.tab} component={Link} to='/' />
-
-        <Tab aria-owns={anchorEl ? "basic-menu" : undefined}
-          aria-haspopup={anchorEl ? "true" : undefined}
-          onMouseOver={(event) => handleClick(event)} label="Services" className={classes.tab} component={Link} to='/services' />
-
-        <Tab label="Revolution" className={classes.tab} component={Link} to='/revolution' />
-        <Tab label="About Us" className={classes.tab} component={Link} to='/about' />
-        <Tab label="Contact Us" className={classes.tab} component={Link} to='/contact' />
+        {routes.map((route, index) => (
+          <Tab 
+          key={`${route}${index}`} 
+          className={classes.tab}
+           component={Link} 
+           to={route.link} 
+           label={route.name}
+            ariaOwns={route.ariaOwns}
+          ariaPopup={route.ariaPopup}
+          onMouseOver={route.mouseOver}>
+            
+          </Tab>
+        ))}
       </Tabs>
       <Button variant="contained" color="secondary" className={classes.button} >Free Estimate</Button>
       <Menu
@@ -210,6 +239,7 @@ function Header() {
         onClose={handleClose}
         MenuListProps={{ onMouseLeave: handleClose }}
         elevation={0}
+        keepMounted
       >
         {menueOptions.map((option, i) => (
           <MenuItem key={option} classes={{ root: classes.menuItem }} component={Link} to={option.Link} onClick={() => { handleClose(); setValue(1) }}>
@@ -227,31 +257,33 @@ function Header() {
         open={openDrawer}
         onClose={() => setOpenDrawer(false)}
         onOpen={() => setOpenDrawer(true)}
-    classes={{paper:classes.drawer}}
+        classes={{ paper: classes.drawer }}
       >
- <List disablePadding>
-   <ListItem onClick={()=>setOpenDrawer(false)} divider button component={Link} to="/">
-     <ListItemText disableTypography className={classes.draweItem}>Home</ListItemText>
-   </ListItem>
-   <ListItem onClick={()=>setOpenDrawer(false)} divider button component={Link} to="/services">
-     <ListItemText disableTypography className={classes.draweItem}>Services</ListItemText>
-   
-   </ListItem>
-   <ListItem onClick={()=>setOpenDrawer(false)} divider button component={Link} to="/revolution">
-     <ListItemText disableTypography className={classes.draweItem}>The Revolution</ListItemText>
-   </ListItem>
-   <ListItem onClick={()=>setOpenDrawer(false)} divider button component={Link} to="/about">
-     <ListItemText disableTypography className={classes.draweItem}> About Us</ListItemText>
-   </ListItem>
-   <ListItem onClick={()=>setOpenDrawer(false)} divider button component={Link} to="/contact">
-     <ListItemText disableTypography className={classes.draweItem}> Contact Us</ListItemText>
-   </ListItem>
-   <ListItem onClick={()=>setOpenDrawer(false)} divider button component={Link} to="/" className={classes.draweItemEstimate}>
-     <ListItemText disableTypography className={classes.draweItem}>Free Estimate</ListItemText>
-   </ListItem>
-  
- 
- </List>
+     <div></div>
+        <List disablePadding>
+          {routes.map(route => (
+            <ListItem divider
+            key={`${route}${route.activeIndex}`}
+              component={Link}
+              to={route.link}
+              onClick={() => { setOpenDrawer(false); setValue(route.activeIndex); }}
+
+              button
+              selected={value === route.activeIndex}
+              classes={{ selected: classes.drawerItemSelected }}>
+              <ListItemText className={value === route.activeIndex ? [classes.draweItem, classes.draweItemSelected] : classes.draweItem} disableTypography > {route.name}</ListItemText>
+
+            </ListItem>
+
+          ))}
+          <ListItem onClick={() => { setOpenDrawer(false); setValue(5) }} divider button component={Link} to="/" className={classes.draweItemEstimate} selected={value === 5}>
+            <ListItemText disableTypography className={value === 5 ? [classes.draweItem, classes.draweItemSelected] : classes.draweItem}>Free Estimate</ListItemText>
+          </ListItem>
+
+
+
+
+        </List>
       </SwipeableDrawer>
       <IconButton onClick={() => setOpenDrawer(!openDrawer)} disableRipple className={classes.drawerIconContainer}>
         <MenuIcon className={classes.drawerIcon} />
@@ -261,7 +293,7 @@ function Header() {
   return (
     <>
       <ElevationScroll >
-        <AppBar position="fixed">
+        <AppBar position="fixed" className={classes.appbar}>
           <Toolbar disableGutters>
             <Button component={Link} to='/' className={classes.containerLogo}>
               <img src={logo} alt="compony logo" className={classes.logo} />

@@ -19,7 +19,7 @@ export default createTheme({
 
      typography:{
          tab:{
-            fontFamily:"Raleway !important",
+          fontFamily: "Raleway !important",
             textTransform:"none !important",
             // fontWeight:" 700!important",
             fontSize:"1rem !important",
