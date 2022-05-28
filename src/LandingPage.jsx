@@ -14,6 +14,7 @@ import customsofware from "../src/assets/CustomSoftwareIcon.svg";
 import mobileAppIcon from "../src/assets/mobileIcon.svg";
 import webSiteIcon from "../src/assets/websiteIcon.svg";
 import revelotionBackground from "../src/assets/repeatingBackground.svg"
+import infoBackground from "../src/assets/infoBackground.svg"
 
 
 const useStyle = makeStyles((theme) => ({
@@ -85,28 +86,44 @@ const useStyle = makeStyles((theme) => ({
       padding: 25,
     },
   },
-  revelotionBackground:{
-    backgroundImage:`url(${revelotionBackground})`,
+  revelotionBackground: {
+    backgroundImage: `url(${revelotionBackground})`,
     backgroundPosition: "center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     height: "100%",
     width: "100%"
   },
-  revolotinCard:{
-    position:"absolute",
-    boxShadow:`${theme.shadows[10]} !important `,
-    borderRadius:15,
-    padding:"10em"
-
+  infoBackground: {
+    backgroundImage: `url(${infoBackground})`,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    height: "100%",
+    width: "100%"
+  },
+  revolotinCard: {
+    position: "absolute",
+    boxShadow: `${theme.shadows[10]} !important `,
+    borderRadius: 15,
+    padding: "10em",
+    [theme.breakpoints.down("sm")]: {
+      paddingTop: "8em",
+      paddingButton: "8em",
+      paddingLeft: 0,
+      paddingRight: 0,
+      borderRadius: 0,
+      width: "100%"
+    },
   }
-  
+
 }));
 
 function LandingPage() {
   const classes = useStyle();
   const theme = useTheme();
   const machesSm = useMediaQuery(theme.breakpoints.down("sm"));
+  const machesXs = useMediaQuery(theme.breakpoints.down("xs"));
 
   const defaultOptions = {
     loop: true,
@@ -283,36 +300,94 @@ function LandingPage() {
       </Grid>
       {/*-----The Revolution Block-----*/}
       <Grid item >
-        <Grid container alignItems="center" justifyContent="center" style={{height:"70em"}}>
-           <Card className={classes.revolotinCard}>
-          <CardContent>
-            <Grid container direction="column"style={{textAlign:"center"}}>
-              <Grid item>
-                <Typography variant="h3">
-                  The Revolution
-                </Typography>
+        <Grid container alignItems="center" justifyContent="center" style={{ height: "70em", marginTop: "12em" }}>
+          <Card className={classes.revolotinCard}>
+            <CardContent>
+              <Grid container direction="column" style={{ textAlign: "center" }}>
+                <Grid item>
+                  <Typography variant="h3" gutterBottom>
+                    The Revolution
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography variant="subtitle1">
+                    Visionary insights coupled with cutting-edge technology is a
+                    recipe for revolution.
+                  </Typography>
+                  <Button variant="outlined" className={classes.learnButton}>
+                    {" "}
+                    <span style={{ marginRight: "10px" }}>Learn More</span>
+                    <ButtonArrow
+                      width={15}
+                      height={15}
+                      fill={theme.palette.common.blue}
+                    />
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Typography variant="subtitle1">
-                  Visionary insights coupled with cutting-edge technology is a
-                  recipe for revolution.
-                </Typography>
-                <Button variant="outlined" className={classes.learnButton}>
-              {" "}
-              <span style={{ marginRight: "10px" }}>Learn More</span>
-              <ButtonArrow
-                width={15}
-                height={15}
-                fill={theme.palette.common.blue}
-              />
-            </Button>
+            </CardContent>
+          </Card>
+          <div className={classes.revelotionBackground} />
+        </Grid>
+      </Grid>
+      <Grid item>
+        {/* The Information block */}
+        <Grid container 
+        style={{ height: "50em" }}
+         direction="row" 
+         alignItems="center"
+         >
+          <Grid
+           item
+            container 
+          style={{ position: "absolute",
+           textAlign: machesSm ? "center" : "inherit"
+          }}
+           direction={machesSm ? "column" : "row"}
+           spacing={machesSm?10:0}
+           >
+            <Grid item sm style={{ marginLeft: machesSm ? 0 : machesSm? "2em" : "5em" }}>
+              <Grid container direction="column">
+                <Typography variant="h2" style={{ color: "white" }}>About Us</Typography>
+                <Typography variant="subtitle2"> Let's get personal.</Typography>
+                <Grid item>
+                  <Button variant="outlined" className={classes.learnButton} style={{ color: "white", borderColor: "white" }}>
+                    {" "}
+                    <span style={{ marginRight: "10px" }}>Learn More</span>
+                    <ButtonArrow
+                      width={15}
+                      height={15}
+                      fill="white"
+                    />
+                  </Button></Grid>
+
               </Grid>
             </Grid>
-          </CardContent>
-        </Card>
-        <div className={classes.revelotionBackground}/> 
+            
+            <Grid item sm  style={{    marginRight: machesSm ? 0 : machesSm ? "2em" : "5em",
+                textAlign: machesSm ? "center" : "right"  }}>
+              <Grid container direction="column">
+                <Typography variant="h2" style={{ color: "white" }}>Contact Us</Typography>
+                <Typography variant="subtitle2">say hello</Typography>
+                <Grid item>
+                  <Button variant="outlined" className={classes.learnButton} style={{ color: "white", borderColor: "white" }}>
+                    {" "}
+                    <span style={{ marginRight: "10px" }}>Learn More</span>
+                    <ButtonArrow
+                      width={15}
+                      height={15}
+                      fill="white"
+                    />
+                  </Button></Grid>
+
+              </Grid>
+            </Grid>
+          </Grid>
+
+          <div className={classes.infoBackground} />
+
         </Grid>
-       
+
 
       </Grid>
 

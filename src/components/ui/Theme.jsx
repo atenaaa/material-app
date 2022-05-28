@@ -29,10 +29,15 @@ export default createTheme({
     },
     h2: {
       fontFamily: "Raleway !important",
-      fontSize: "1.5rem",
+      fontSize: "1.75rem",
       fontWeight: 700,
       color: `${arcBlue}`,
       lineHeight: 1.5,
+    },
+    h3:{
+      fontFamily: "pacifico !important",
+      fontSize: "1.75rem",
+      color: arcBlue,
     },
     h4: {
       fontFamily: "Raleway",
