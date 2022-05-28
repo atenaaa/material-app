@@ -64,7 +64,7 @@ export default createTheme({
       borderRadius: "50px !important",
       fontFamily: "Roboto",
       fontWeight: "bold",
-      borderRadius: "50px !important",
+    
     },
   },
 });

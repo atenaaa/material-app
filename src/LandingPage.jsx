@@ -6,11 +6,15 @@ import { Button } from "@mui/material";
 import ButtonArrow from "./components/ui/ButtonArrow";
 import { Typography } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 import animationData from "./animations/landinganimation/data";
 import customsofware from "../src/assets/CustomSoftwareIcon.svg";
 import mobileAppIcon from "../src/assets/mobileIcon.svg";
 import webSiteIcon from "../src/assets/websiteIcon.svg";
+import revelotionBackground from "../src/assets/repeatingBackground.svg"
+
 
 const useStyle = makeStyles((theme) => ({
   animation: {
@@ -81,6 +85,22 @@ const useStyle = makeStyles((theme) => ({
       padding: 25,
     },
   },
+  revelotionBackground:{
+    backgroundImage:`url(${revelotionBackground})`,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    height: "100%",
+    width: "100%"
+  },
+  revolotinCard:{
+    position:"absolute",
+    boxShadow:`${theme.shadows[10]} !important `,
+    borderRadius:15,
+    padding:"10em"
+
+  }
+  
 }));
 
 function LandingPage() {
@@ -261,7 +281,43 @@ function LandingPage() {
           </Grid>
         </Grid>
       </Grid>
+      {/*-----The Revolution Block-----*/}
+      <Grid item >
+        <Grid container alignItems="center" justifyContent="center" style={{height:"70em"}}>
+           <Card className={classes.revolotinCard}>
+          <CardContent>
+            <Grid container direction="column"style={{textAlign:"center"}}>
+              <Grid item>
+                <Typography variant="h3">
+                  The Revolution
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="subtitle1">
+                  Visionary insights coupled with cutting-edge technology is a
+                  recipe for revolution.
+                </Typography>
+                <Button variant="outlined" className={classes.learnButton}>
+              {" "}
+              <span style={{ marginRight: "10px" }}>Learn More</span>
+              <ButtonArrow
+                width={15}
+                height={15}
+                fill={theme.palette.common.blue}
+              />
+            </Button>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+        <div className={classes.revelotionBackground}/> 
+        </Grid>
+       
+
+      </Grid>
+
     </Grid>
+
   );
 }
 
