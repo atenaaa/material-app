@@ -48,8 +48,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       height: "7em",
     },
-    [theme.breakpoints.down("xs")]: {
-      height: "4em",
+    [theme.breakpoints.down("sm")]: {
+      height: "5em",
+  
     },
   },
   containerLogo: {
@@ -214,7 +215,10 @@ function Header({ setValue, value, selectedIndex, setSelectedIndex }) {
           ></Tab>
         ))}
       </Tabs>
-      <Button variant="contained" color="secondary" className={classes.button}>
+      <Button variant="contained" color="secondary" className={classes.button}
+       component={Link} to="/estimate" 
+       onClick={()=>setValue(5)}
+       >
         Free Estimate
       </Button>
       <Menu

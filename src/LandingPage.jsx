@@ -3,11 +3,14 @@ import Lottie from "react-lottie";
 import { makeStyles, useTheme } from "@mui/styles";
 import { Grid } from "@mui/material";
 import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 import ButtonArrow from "./components/ui/ButtonArrow";
 import { Typography } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+
+import CallToAction from "../src/components/ui/CallToAction"
 
 import animationData from "./animations/landinganimation/data";
 import customsofware from "../src/assets/CustomSoftwareIcon.svg";
@@ -123,7 +126,7 @@ function LandingPage() {
   const classes = useStyle();
   const theme = useTheme();
   const machesSm = useMediaQuery(theme.breakpoints.down("sm"));
-  const machesXs = useMediaQuery(theme.breakpoints.down("xs"));
+
 
   const defaultOptions = {
     loop: true,
@@ -332,27 +335,35 @@ function LandingPage() {
       </Grid>
       <Grid item>
         {/* The Information block */}
-        <Grid container 
-        style={{ height: "50em" }}
-         direction="row" 
-         alignItems="center"
-         >
+        <Grid container
+          style={{ height: "50em" }}
+          direction="row"
+          alignItems="center"
+        >
           <Grid
-           item
-            container 
-          style={{ position: "absolute",
-           textAlign: machesSm ? "center" : "inherit"
-          }}
-           direction={machesSm ? "column" : "row"}
-           spacing={machesSm?10:0}
-           >
-            <Grid item sm style={{ marginLeft: machesSm ? 0 : machesSm? "2em" : "5em" }}>
+            item
+            container
+            style={{
+              position: "absolute",
+              textAlign: machesSm ? "center" : "inherit"
+            }}
+            direction={machesSm ? "column" : "row"}
+            spacing={machesSm ? 10 : 0}
+          >
+            <Grid item sm style={{ marginLeft: machesSm ? 0 : machesSm ? "2em" : "5em" }}>
               <Grid container direction="column">
                 <Typography variant="h2" style={{ color: "white" }}>About Us</Typography>
                 <Typography variant="subtitle2"> Let's get personal.</Typography>
                 <Grid item>
-                  <Button variant="outlined" className={classes.learnButton} style={{ color: "white", borderColor: "white" }}>
-                    {" "}
+                  <Button   
+                    variant="outlined" 
+                    className={classes.learnButton}
+                    component={Link}
+                    to="/about"
+                    style={{ color: "white", borderColor: "white" }}
+              
+                   >
+                 
                     <span style={{ marginRight: "10px" }}>Learn More</span>
                     <ButtonArrow
                       width={15}
@@ -363,14 +374,21 @@ function LandingPage() {
 
               </Grid>
             </Grid>
-            
-            <Grid item sm  style={{    marginRight: machesSm ? 0 : machesSm ? "2em" : "5em",
-                textAlign: machesSm ? "center" : "right"  }}>
+
+            <Grid item sm style={{
+              marginRight: machesSm ? 0 : machesSm ? "2em" : "5em",
+              textAlign: machesSm ? "center" : "right"
+            }}>
               <Grid container direction="column">
                 <Typography variant="h2" style={{ color: "white" }}>Contact Us</Typography>
                 <Typography variant="subtitle2">say hello</Typography>
                 <Grid item>
-                  <Button variant="outlined" className={classes.learnButton} style={{ color: "white", borderColor: "white" }}>
+                  <Button
+                   variant="outlined"
+                   component={Link}
+                   to="/contact"
+                    className={classes.learnButton}
+                   style={{ color: "white", borderColor: "white" }}>
                     {" "}
                     <span style={{ marginRight: "10px" }}>Learn More</span>
                     <ButtonArrow
@@ -387,8 +405,10 @@ function LandingPage() {
           <div className={classes.infoBackground} />
 
         </Grid>
-
-
+      </Grid>
+      {/* The  callto action block */}
+      <Grid item>
+        <CallToAction />
       </Grid>
 
     </Grid>
