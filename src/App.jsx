@@ -8,6 +8,7 @@
  import Header from "./components/ui/Header";
  import Footer from './components/ui/Footer';
  import LandingPage from './LandingPage';
+ import Services from './Services';
 
 function App() {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -17,8 +18,8 @@ function App() {
       <BrowserRouter> 
        <Header value={value} setValue={setValue} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex}/>
        <Routes>
-         <Route  path="/" element={ <LandingPage/>} /> 
-         <Route  path="/services" element={<div>services</div>}/> 
+         <Route  path="/" element={<LandingPage/>} /> 
+         <Route  path="/services" element={<Services/>}/> 
          <Route  path="/customsoftware" element={<div>customsoftware</div>}/> 
          <Route  path="/mobileapps" element={<div>mobileapps</div>}/> 
          <Route  path="/websites" element={<div>websites</div>}/> 

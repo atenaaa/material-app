@@ -122,7 +122,7 @@ const useStyle = makeStyles((theme) => ({
 
 }));
 
-function LandingPage() {
+function LandingPage( ) {
   const classes = useStyle();
   const theme = useTheme();
   const machesSm = useMediaQuery(theme.breakpoints.down("sm"));
@@ -164,7 +164,7 @@ function LandingPage() {
               className={classes.buttonContainer}
             >
               <Grid item>
-                <Button variant="contained" className={classes.estimateButton}>
+                <Button variant="contained" className={classes.estimateButton} component={Link} to="/estimate"  >
                   Free Estimate
                 </Button>
               </Grid>
@@ -203,8 +203,11 @@ function LandingPage() {
               Complete digital solutions, from investigation to{" "}
               <span className={classes.specialText}>celebration.</span>
             </Typography>
-            <Button variant="outlined" className={classes.learnButton}>
-              {" "}
+            <Button variant="outlined" className={classes.learnButton}
+                component={Link}
+                to="/customsoftware"
+             >
+            
               <span style={{ marginRight: "10px" }}>Learn More</span>
               <ButtonArrow
                 width={15}
@@ -245,7 +248,9 @@ function LandingPage() {
               Integrate your web experience or create a standalone app
               {machesSm ? null : <br />}with either mobile platform.
             </Typography>
-            <Button variant="outlined" className={classes.learnButton}>
+            <Button variant="outlined"   
+             component={Link}
+              to="/mobileapps" className={classes.learnButton}>
               {" "}
               <span style={{ marginRight: "10px" }}>Learn More</span>
               <ButtonArrow
@@ -255,7 +260,7 @@ function LandingPage() {
               />
             </Button>
           </Grid>
-          <Grid item>
+          <Grid item  style={{ marginRight: machesSm ? 0 : "5em" }}>
             <img
               className={classes.icon}
               src={mobileAppIcon}
@@ -286,8 +291,11 @@ function LandingPage() {
             <Typography variant="subtitle1">
               Optimized for Search Engines, built for speed.
             </Typography>
-            <Button variant="outlined" className={classes.learnButton}>
-              {" "}
+            <Button variant="outlined"
+             className={classes.learnButton}
+               component={Link}
+               to="/websites">
+             
               <span style={{ marginRight: "10px" }}>Learn More</span>
               <ButtonArrow
                 width={15}
@@ -317,7 +325,10 @@ function LandingPage() {
                     Visionary insights coupled with cutting-edge technology is a
                     recipe for revolution.
                   </Typography>
-                  <Button variant="outlined" className={classes.learnButton}>
+                  <Button variant="outlined"
+                    component={Link}
+                    to="/revolution"
+                   className={classes.learnButton}>
                     {" "}
                     <span style={{ marginRight: "10px" }}>Learn More</span>
                     <ButtonArrow
