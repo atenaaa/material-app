@@ -55,6 +55,11 @@ export default createTheme({
       fontWeight: 300,
       fontSize: "1.25rem",
     },
+    body1: {
+      fontSize: "1.25rem",
+      color: arcGrey,
+      fontWeight: 300
+    },
     estimate: {
       fontFamily: "pacifico !important",
       textTransform: "none !important",
