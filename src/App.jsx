@@ -11,6 +11,7 @@
  import Services from './Services';
  import CustomSoftware from './CustomSoftware';
  import About from './components/ui/About';
+ import Contact from "./components/ui/Contact"
 
 function App() {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -27,7 +28,7 @@ function App() {
          <Route  path="/websites" element={<div>websites</div>}/> 
          <Route  path="/revolution" element={<div>revolotion</div>}/> 
          <Route  path="/about" element={<About/>}/> 
-         <Route  path="/contact" element={<div>contact</div>}/> 
+         <Route  path="/contact" element={<Contact/>}/> 
          <Route  path="/estimate" element={<div>estimate</div>}/> 
        </Routes> 
          <Footer value={value} setValue={setValue} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex}/>
