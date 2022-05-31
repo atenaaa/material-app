@@ -1,12 +1,18 @@
 import { Grid } from "@mui/material";
+import { CircularProgress } from '@mui/material';
+import axios from "axios";
 import { Typography } from "@mui/material";
 import { makeStyles, useTheme } from "@mui/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom"
 import { Button } from "@mui/material";
 import TextField from '@mui/material/TextField';
 import ButtonArrow from "../../components/ui/ButtonArrow";
+ 
+
+import DialogContent from '@mui/material/DialogContent';
+import Dialog from '@mui/material/Dialog';
 
 import mobilebackGround from "../../assets/mobileBackground.jpg"
 import background from "../../assets/background.jpg"
@@ -79,6 +85,9 @@ const Contact = () => {
 
   const machesSM = useMediaQuery(theme.breakpoints.down("sm"))
   const machesMD = useMediaQuery(theme.breakpoints.down("md"))
+ 
+ const [loading, setLoading] = useState(false);
+ 
 
   const [name, setName] = useState('')
 
@@ -91,6 +100,9 @@ const Contact = () => {
 
   const [message, setMessage] = useState('')
 
+  const [open, setOpen] = useState(false);
+
+ 
   const onChange = event => {
     let valid;
 
@@ -122,13 +134,53 @@ const Contact = () => {
       default:
         break;
     }
+  }; const onConfirm = () => {
+    setLoading(true);
+
+    axios
+      .get(
+        "https://jsonplaceholder.typicode.com/todos/1",
+        {
+          params: {
+            email: email,
+            name: name,
+            phone: phone,
+            message: message
+          }
+        }
+      )
+      .then(res => {
+      setLoading(false);
+        setOpen(false);
+        setName("");
+        setEmail("");
+        setPhone("");
+        setMessage("");
+        // setAlert({ open: true, color: "#4BB543" });
+        // setAlertMesssage("Message sent successfully!");
+      })
+      .catch(err => {
+       setLoading(false);
+        // setAlert({ open: true, color: "#FF3232" });
+        // setAlertMesssage("Something went wrong! Please try again.");
+        console.error(err);
+      });
   };
+  const buttonContents =(
+    <React.Fragment>
+         send message
+                <img src={airplane} alt="airplane" style={{ marginLeft: "2em" }} />
+    </React.Fragment>
+  )
 
   return (
     <Grid container direction="row">
-      <Grid item container direction="column"
-        justifyContent="center"
-        alignItems="center"
+
+      <Grid item 
+         container
+         direction="column"
+         justifyContent="center"
+         alignItems="center"
         style={{ marginBottom: machesSM ? "1em" : machesMD ? "5em" : 0, marginTop: machesMD ? "5em" : 0 }}
         xl={3} lg={4}>
         <Grid item>
@@ -149,7 +201,13 @@ const Contact = () => {
               </Grid>
               <Grid item >
                 <Typography align={machesMD ? "center" : undefined} variant="body1"
-                  style={{ color: theme.palette.common.blue, fontSize: "1rem" }}>  (555) 555-5555</Typography>
+                  style={{ color: theme.palette.common.blue, fontSize: "1rem" }}>
+                     <a
+                  href="tel:55555555555"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  (555) 5555-5555
+                </a></Typography>
               </Grid>
             </Grid>
             <Grid item container style={{ marginBottom: "2em" }} >
@@ -157,13 +215,20 @@ const Contact = () => {
                 <img src={emailIcon} alt="phoneIcon" style={{ marginRight: "0.5em", verticalAlign: "bottom" }} />
               </Grid>
               <Grid item>
-                <Typography variant="body1" style={{ color: theme.palette.common.blue, fontSize: "1rem" }}>atenajafari@gmailcom</Typography>
+                <Typography variant="body1" style={{ color: theme.palette.common.blue, fontSize: "1rem" }}>
+        
+                  <a
+                    href="mailto:zachary@gmail.com"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    zachary@gmail.com
+                  </a>
+                </Typography>
               </Grid>
             </Grid>
             <Grid item container direction="column" style={{ maxWidth: "20em" }}>
               <Grid item style={{ marginBottom: "0.5em" }}>
                 <TextField label="name"
-              
                   fullWidth id="name"
                   variant="standard"
                   value={name}
@@ -193,8 +258,6 @@ const Contact = () => {
                   onChange={onChange}
                 />
               </Grid>
-           
-
             </Grid>
             <Grid item>
               <TextField label="message"
@@ -209,15 +272,85 @@ const Contact = () => {
                 emailHelper.length !== 0}
                 variant="contained"
                 className={classes.sendButton}
+                onClick={()=>setOpen(true)}
                 style={{ marginTop: "2em" }}>
-                send message
-                <img src={airplane} alt="airplane" style={{ marginLeft: "2em" }} />
+            {buttonContents}
               </Button>
             </Grid>
           </Grid>
         </Grid>
 
       </Grid>
+      <Dialog open={open} style={{zIndex:1302}}   fullScreen={machesSM}  onClose={() => setOpen(false)}
+      PaperProps={{style:{paddingTop:machesMD ? "0":"3em",paddingBottom:machesMD ? "0":"3em",paddingLeft:machesMD ?  "0" :"5em",paddingRight:machesMD ?  "0" :"5em"}}}>
+      <DialogContent>
+        <Grid container direction="column">
+          <Grid item>
+            <Typography variant="h4" gutterBottom>confirem message</Typography>
+          </Grid>
+        </Grid>
+    
+        <Grid item style={{ marginBottom: "0.5em" }}>
+                <TextField label="name"
+                  fullWidth id="name"
+                  variant="standard"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)} />
+              </Grid>
+              <Grid item  >
+                <TextField
+                  label="Phone"
+                  helperText={phoneHelper}
+                  error={phoneHelper.length !== 0}
+                  id="phone"
+                  fullWidth
+                  value={phone}
+                  onChange={onChange}
+                  variant="standard" 
+                />
+              </Grid>
+              <Grid item  >
+                <TextField
+                  label="Email"
+                  error={emailHelper.length!==0}
+                  helperText={emailHelper}
+                  id="email"
+                  fullWidth
+                  variant="standard" 
+                  value={email}
+                  onChange={onChange}
+                />
+              </Grid>
+      
+        <Grid item style={{maxWidth:machesSM?"100%" : "20em"}}>
+              <TextField label="message"
+                className={classes.message}
+                id="Message" InputProps={{ disableUnderline: true }} multiline rows={5} 
+                variant="standard" onChange={(e) => setMessage(e.target.value)} />
+            </Grid>
+            <Grid item container direction={machesSM?"column":"row"} style={{marginTop:"2em"}} alignItems="center" >
+              <Grid item>  
+                 <Button color="primary"style={{fontWeight:"300"}}   onClick={()=>setOpen(false)} >cancel</Button>
+              </Grid>
+              <Grid item>  
+                      <Button
+              disabled={  name.length === 0 ||
+                message.length === 0 ||
+                phoneHelper.length !== 0 ||
+                emailHelper.length !== 0}
+                variant="contained"
+                className={classes.sendButton}
+                onClick={onConfirm}
+           
+               >
+                 {loading ? <CircularProgress size={30} /> : buttonContents}
+              </Button>
+              </Grid>
+              
+            </Grid>
+      </DialogContent>
+
+      </Dialog>
       <Grid item container
         className={classes.background}
         alignItems="center"
@@ -262,7 +395,7 @@ const Contact = () => {
           </Button>
         </Grid>
       </Grid>
-      <Grid item>
+      <Grid item >
 
       </Grid>
 

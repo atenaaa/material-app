@@ -12,6 +12,7 @@
  import CustomSoftware from './CustomSoftware';
  import About from './components/ui/About';
  import Contact from "./components/ui/Contact"
+ import Estimate from './components/ui/Estimate';
 
 function App() {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -29,7 +30,7 @@ function App() {
          <Route  path="/revolution" element={<div>revolotion</div>}/> 
          <Route  path="/about" element={<About/>}/> 
          <Route  path="/contact" element={<Contact/>}/> 
-         <Route  path="/estimate" element={<div>estimate</div>}/> 
+         <Route  path="/estimate" element={<Estimate/>}/> 
        </Routes> 
          <Footer value={value} setValue={setValue} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex}/>
       </BrowserRouter>
