@@ -19,6 +19,8 @@ export default createTheme({
     },
   },
 
+  
+
   typography: {
     tab: {
       fontFamily: "Raleway !important",
@@ -62,7 +64,7 @@ export default createTheme({
       fontSize: "1.25rem",
     },
     body1: {
-      fontSize: "1.25rem",
+      fontSize: "1rem",
       color: arcGrey,
       fontWeight: 300
     },
@@ -95,10 +97,11 @@ export default createTheme({
         fontSize: "1rem"
       }
     },
+    
     MuiInput: {
       root: {
-        color: arcGrey,
-        fontWeight: 300
+        color: 'red',
+        fontWeight: 300        
       },
       underline: {
         "&:before": {

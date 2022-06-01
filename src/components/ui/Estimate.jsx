@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 import { Typography } from "@mui/material";
 import { makeStyles, useTheme } from "@mui/styles";
 import IconButton from "@mui/material/IconButton";
@@ -9,9 +9,6 @@ import { useState } from "react";
 import { Dialog } from "@mui/material";
 import { DialogContent } from "@mui/material";
 import TextField from '@mui/material/TextField';
-
-
-
 import check from "../../assets/check.svg"
 import send from "../../assets/send.svg";
 import software from "../../assets/software.svg";
@@ -21,6 +18,7 @@ import backArrow from "../../assets/backArrow.svg";
 import backArrowDisabled from "../../assets/backArrowDisabled.svg";
 import forwardArrow from "../../assets/forwardArrow.svg";
 import forwardArrowDisabled from "../../assets/forwardArrowDisabled.svg";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import camera from "../../assets/camera.svg";
 import upload from "../../assets/upload.svg";
 import person from "../../assets/person.svg";
@@ -59,9 +57,10 @@ const useStyle = makeStyles((theme) => ({
     }
   },
   message: {
-    border: `2px solid ${theme.palette.common.blue} !important`,
-    marginTop: "5em!important",
+    borderColor: `${theme.palette.common.orange} !important`,
+    marginTop: "2em!important",
     borderRadius: 5,
+    width: '100%',
 
   },
   specialText: {
@@ -333,6 +332,10 @@ function Estimate() {
   const classes = useStyle()
   const theme = useTheme();
 
+
+  const machesMD = useMediaQuery(theme.breakpoints.down("md"))
+  const machesSM = useMediaQuery(theme.breakpoints.down("sm"))
+
   const [questions, setQuestions] = useState(defaultQuestions);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [name, setName] = useState('')
@@ -377,7 +380,7 @@ function Estimate() {
           setEmailHelper("Invalid email");
         } else {
           setEmailHelper("");
-          
+
         }
         break;
       case "phone":
@@ -388,7 +391,7 @@ function Estimate() {
 
         if (!valid) {
           setPhoneHelper("Invalid phone");
-        
+
         } else {
           setPhoneHelper("");
         }
@@ -464,9 +467,9 @@ function Estimate() {
       case 'Custom Software Development':
         setQuestions(softwareQuestions);
         setService(newSelected.title);
-       
-        
-   
+
+
+
         break;
       case "iOS/Android App Development":
         setQuestions(softwareQuestions);
@@ -476,7 +479,7 @@ function Estimate() {
         setCustomFeatures("")
         setCategory("")
         setUsers("")
-    
+
         break
       case "Website Development":
         setQuestions(websiteQuestions);
@@ -507,7 +510,7 @@ function Estimate() {
 
 
 
-setUsers(userCost.title)
+      setUsers(userCost.title)
 
       cost -= userCost.cost;
       cost *= userCost.cost;
@@ -527,12 +530,11 @@ setUsers(userCost.title)
         )
         .map(question => question.options.filter(option => option.selected))[0]
         .map(option => newPlatforms.push(option.title));
-       
 
       setPlatforms(newPlatforms);
     }
   };
- 
+
   const getFeatures = () => {
     if (questions.length > 2) {
       let newFeatures = [];
@@ -564,7 +566,7 @@ setUsers(userCost.title)
       setCustomFeatures(newCustomFeatures);
     }
   };
-  
+
   return (
     <Grid container direction="row">
       {/*  */}
@@ -635,175 +637,190 @@ setUsers(userCost.title)
           </Grid>
         </Grid>
         <Grid item mt={3}>
-          <Button variant="contained" onClick={() => { setDialogOpen(true); getTotal();getPlatforms();getFeatures();getCustomFeatures()}} className={classes.estimateButton}>
+          <Button variant="contained" onClick={() => { setDialogOpen(true); getTotal(); getPlatforms(); getFeatures(); getCustomFeatures() }} className={classes.estimateButton}>
             Get estimate
           </Button>
         </Grid>
 
       </Grid>
-      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+      <Dialog
+        style={{ zIndex: 1302 }}
+        fullScreen={machesSM}
+        open={dialogOpen}
+        fullWidth=""
+        maxWidth="lg"
+        PaperProps={{ style: { paddingTop: machesMD ? "0" : "3em", paddingBottom: machesMD ? "0" : "3em", paddingLeft: machesMD ? "0" : "5em", paddingRight: machesMD ? "0" : "5em" } }}
+        onClose={() => setDialogOpen(false)}>
         <Grid container justifyContent="center">
+
+        </Grid>
+        <DialogContent>
           <Grid item>
             <Typography variant="h2" align="center">Estimate</Typography>
           </Grid>
-        </Grid>
-        <DialogContent>
-          <Grid item container direction="column" md={7}>
-            <Grid item style={{ marginBottom: "0.5em" }}>
-              <TextField label="name"
-                fullWidth id="name"
-                variant="standard"
-                value={name}
-                onChange={(e) => setName(e.target.value)} />
-            </Grid>
-            <Grid item style={{ marginBottom: "0.5em" }}>
-              <TextField
-                label="Phone"
-                helperText={phoneHelper}
-                error={phoneHelper.length !== 0}
-                id="phone"
-                fullWidth
-                value={phone}
-                onChange={onChange}
-                variant="standard"
-              />
-            </Grid>
-            <Grid item style={{ marginBottom: "0.5em" }}>
-              <TextField
-                label="Email"
-                error={emailHelper.length !== 0}
-                helperText={emailHelper}
-                id="email"
-                fullWidth
-                variant="standard"
-                value={email}
-                onChange={onChange}
-              />
-            </Grid>
-          </Grid>
-          <Grid item style={{ maxWidth: "20em" }}>
-            <TextField label="message"
-              className={classes.message}
-              id="Message"
-              value={message}
-              InputProps={{ disableUnderline: true }}
-              multiline rows={10}
-              variant="standard"
-              onChange={(e) => setMessage(e.target.value)} />
-          </Grid>
-          <Grid item>
-            <Typography variant="body1" paragraph>
-              we can create this digital solution for an estimated
+          <Grid container justifyContent="space-around">
+            <Grid item md={7} pr={3}>
 
-              <span className={classes.specialText}>
-                ${total.toFixed(2)}
-                {platforms.length>0?`for ${
-                              //if only web application is selected...
-                              platforms.indexOf("Web Application") > -1 &&
-                              platforms.length === 1
-                                ? //then finish sentence here
-                                  "a Web Application."
-                                : //otherwise, if web application and another platform is selected...
-                                platforms.indexOf("Web Application") > -1 &&
-                                  platforms.length === 2
+              <Grid item container direction="column" >
+                <Grid item style={{ marginBottom: "0.5em" }}>
+                  <TextField label="name"
+                    fullWidth id="name"
+                    variant="standard"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)} />
+                </Grid>
+                <Grid item style={{ marginBottom: "0.5em" }}>
+                  <TextField
+                    label="Phone"
+                    helperText={phoneHelper}
+                    error={phoneHelper.length !== 0}
+                    id="phone"
+                    fullWidth
+                    value={phone}
+                    onChange={onChange}
+                    variant="standard"
+                  />
+                </Grid>
+                <Grid item style={{ marginBottom: "0.5em" }}>
+                  <TextField
+                    label="Email"
+                    error={emailHelper.length !== 0}
+                    helperText={emailHelper}
+                    id="email"
+                    fullWidth
+                    variant="standard"
+                    value={email}
+                    onChange={onChange}
+                  />
+                </Grid>
+              </Grid>
+              <Grid item style={{ maxWidth: "20em" }} mb={3}>
+                <TextField label="message"
+                  className={classes.message}
+                  id="Message"
+                  value={message}
+                  InputProps={{ disableUnderline: true }}
+                  multiline rows={5}
+
+                  onChange={(e) => setMessage(e.target.value)} />
+              </Grid>
+              <Grid item>
+                <Typography variant="body1" paragraph>
+                  we can create this digital solution for an estimated
+
+                  <span className={classes.specialText}>
+                    ${total.toFixed(2)}
+                    {platforms.length > 0 ? `for ${
+                      //if only web application is selected...
+                      platforms.indexOf("Web Application") > -1 &&
+                        platforms.length === 1
+                        ? //then finish sentence here
+                        "a Web Application."
+                        : //otherwise, if web application and another platform is selected...
+                        platforms.indexOf("Web Application") > -1 &&
+                          platforms.length === 2
+                          ? //then finish the sentence here
+                          `a Web Application and an ${platforms[1]}.`
+                          : //otherwise, if only one platform is selected which isn't web application...
+                          platforms.length === 1
+                            ? //then finish the sentence here
+                            `an ${platforms[0]}`
+                            : //otherwise, if other two options are selected...
+                            platforms.length === 2
+                              ? //then finish the sentence here
+                              "an iOS Application and an Android Application."
+                              : //otherwise if all three are selected...
+                              platforms.length === 3
                                 ? //then finish the sentence here
-                                  `a Web Application and an ${platforms[1]}.`
-                                : //otherwise, if only one platform is selected which isn't web application...
-                                platforms.length === 1
-                                ? //then finish the sentence here
-                                  `an ${platforms[0]}`
-                                : //otherwise, if other two options are selected...
-                                platforms.length === 2
-                                ? //then finish the sentence here
-                                  "an iOS Application and an Android Application."
-                                : //otherwise if all three are selected...
-                                platforms.length === 3
-                                ? //then finish the sentence here
-                                  "a Web Application, an iOS Application, and an Android Application."
+                                "a Web Application, an iOS Application, and an Android Application."
                                 : null
-                            }`:null}
-                           
-              </span>
-            </Typography>
-            <Typography
-              variant="body1"
-              paragraph
+                      }` : null}
 
-            >
-              Fill out your name, number, and email, place your request, and
-              we’ll get back to you with details moving forward and a final
-              price.
-            </Typography>
-          </Grid>
+                  </span>
+                </Typography>
+                <Typography
+                  variant="body1"
+                  paragraph
 
-          <Grid item container direction="column">
-            <Grid item>
-              <Grid container direction="column" md={5}>
+                >
+                  Fill out your name, number, and email, place your request, and
+                  we’ll get back to you with details moving forward and a final
+                  price.
+                </Typography>
+              </Grid>
+            </Grid>
 
+
+            <Grid item md={5} mt={5}>
+              <Grid item container >
                 <Grid item container alignItems="center">
                   <Grid item xs={2}>
-                    <img src={check} alt="checkmark" />
+                    <img src={check} alt="checkmark" width='20' />
                   </Grid>
                   <Grid item xs={10}>
                     <Typography variant="body1">
-                     you want {service} </Typography>
+                      you want {service} </Typography>
                   </Grid>
                   <Grid item xs={2}>
-                    <img src={check} alt="checkmark" />
+                    <img src={check} alt="checkmark" width='20' />
                   </Grid>
                   <Grid item xs={10}>
-                    <Typography variant="body1"> 
-                    {"with "}
-             
-                        {/* if we have features... */}
-                        {features.length > 0
-                          ? //...and there's only 1...
-                            features.length === 1
-                              ? //then end the sentence here
-                              `${features[0]}.`
-                              : //otherwise, if there are two features...
-                            features.length === 2
-                              ? //...then end the sentence here
-                              `${features[0]} and ${features[1]}.`
-                              : //otherwise, if there are three or more features...
-                              features
-                            //filter out the very last feature...
-                            .filter(
-                              (feature, index) =>
-                              index !== features.length - 1
-                            )
-                            //and for those features return their name...
-                            .map((feature, index) => (
-                              <span key={index}>{`${feature}, `}</span>
-                            ))
-                          : null}
-                        {features.length > 2
-                            ? //...and then finally add the last feature with 'and' in front of it
-                            ` and ${features[features.length - 1]}.`
-                            : null}
-                            </Typography>
+                    <Typography variant="body1">
+                      {"with "}
+
+                      {/* if we have features... */}
+                      {features.length > 0
+                        ? //...and there's only 1...
+                        features.length === 1
+                          ? //then end the sentence here
+                          `${features[0]}.`
+                          : //otherwise, if there are two features...
+                          features.length === 2
+                            ? //...then end the sentence here
+                            `${features[0]} and ${features[1]}.`
+                            : //otherwise, if there are three or more features...
+                            features
+                              //filter out the very last feature...
+                              .filter(
+                                (feature, index) =>
+                                  index !== features.length - 1
+                              )
+                              //and for those features return their name...
+                              .map((feature, index) => (
+                                <span key={index}>{`${feature}, `}</span>
+                              ))
+                        : null}
+                      {features.length > 2
+                        ? //...and then finally add the last feature with 'and' in front of it
+                        ` and ${features[features.length - 1]}.`
+                        : null}
+                    </Typography>
                   </Grid>
                   <Grid item xs={2}>
-                    <img src={check} alt="checkmark" />
+                    <img src={check} alt="checkmark" width='20' />
                   </Grid>
                   <Grid item xs={10}>
                     <Typography variant="body1">Thired{customFeatures.toLowerCase()}
-                    {`project while be used${users} user`}
+                      {`project while be used${users} user`}
                     </Typography>
                   </Grid>
                 </Grid>
-
+                <Grid item mt={3}>
+                  <Button variant="contained" className={classes.estimateButton}>
+                    place request
+                    <img src={send} alt="send" />
+                  </Button>
+                </Grid>
 
               </Grid>
-              <Grid item>
-                <Button variant="contained" className={classes.estimateButton}>
-                  place request
-                  <img src={send} alt="send" />
-                </Button>
-              </Grid>
+
             </Grid>
 
           </Grid>
+
+
+
+
         </DialogContent>
       </Dialog>
     </Grid>

@@ -44,9 +44,11 @@ const useStyle = makeStyles((theme) => ({
     },
   },
   message: {
-    border: `2px solid ${theme.palette.common.blue} !important`,
-    marginTop: "5em!important",
-    borderRadius: 5
+    borderColor: `${theme.palette.common.blue} !important`,
+    marginTop: "2em!important",
+    borderRadius: 5,
+    width:'100%',
+
   },
   estimateButton: {
     ...theme.typography.estimate,
@@ -271,8 +273,8 @@ const Contact = () => {
                 className={classes.message}
                 id="Message" 
                 InputProps={{ disableUnderline: true }} 
-                multiline rows={10} 
-                variant="standard"
+                multiline rows={5} 
+               
                  onChange={(e) => setMessage(e.target.value)} />
             </Grid>
             <Grid item container justifyContent="center" style={{ marginTop: "2em" }}>
