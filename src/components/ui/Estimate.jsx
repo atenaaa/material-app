@@ -471,6 +471,11 @@ function Estimate() {
       case "iOS/Android App Development":
         setQuestions(softwareQuestions);
         setService(newSelected.title);
+        setPlatforms([]);
+        setFeatures([])
+        setCustomFeatures("")
+        setCategory("")
+        setUsers("")
     
         break
       case "Website Development":
@@ -559,6 +564,7 @@ setUsers(userCost.title)
       setCustomFeatures(newCustomFeatures);
     }
   };
+  
   return (
     <Grid container direction="row">
       {/*  */}

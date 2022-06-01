@@ -40,8 +40,8 @@ const useStyles = makeStyles((theme) => ({
     margin: "3em !important",
   },
   icon: {
-    height: "4em",
-    width: "4em",
+    height: "3.5em",
+    width: "3.5em",
     [theme.breakpoints.down("sm")]: {
       height: "2.5em",
       width: "2.5em",
@@ -242,37 +242,39 @@ function Footer({ setValue, setSelectedIndex }) {
         src={Footersdornment}
         className={classes.adorment}
       />
-
-      <Grid
+   <Grid
         container
         justifyContent="flex-end"
-        className={classes.socialContainer}
         spacing={2}
+        className={classes.socialContainer}
+        style={{paddingRight:"2em"}}
       >
         <Grid
           item
           component={"a"}
           href="https://www.facebook.com"
-          rel="noopenr noreferrer"
+          rel="noopener noreferrer"
           target="_blank"
         >
-          <img src={facebook} alt="facebook logo" className={classes.icon} />
+          <img alt="facebook logo" src={facebook} className={classes.icon} />
         </Grid>
-        <item
+        <Grid
+          item
           component={"a"}
           href="https://www.twitter.com"
           rel="noopener noreferrer"
           target="_blank"
         >
-          <img src={Twitter} alt="Twitter logo" className={classes.icon} />
-        </item>
+          <img alt="twitter logo" src={Twitter} className={classes.icon} />
+        </Grid>
         <Grid
           item
+          component={"a"}
           href="https://www.instagram.com"
-          rel="noopenr noreferrer"
+          rel="noopener noreferrer"
           target="_blank"
         >
-          <img src={instagram} alt="instagram logo" className={classes.icon} />
+          <img alt="instagram logo" src={instagram} className={classes.icon} />
         </Grid>
       </Grid>
     </footer>
