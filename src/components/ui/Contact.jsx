@@ -13,6 +13,7 @@ import ButtonArrow from "../../components/ui/ButtonArrow";
 
 import DialogContent from '@mui/material/DialogContent';
 import Dialog from '@mui/material/Dialog';
+import { Snackbar } from "@mui/material";
 
 import mobilebackGround from "../../assets/mobileBackground.jpg"
 import background from "../../assets/background.jpg"
@@ -102,6 +103,11 @@ const Contact = () => {
 
   const [open, setOpen] = useState(false);
 
+  
+  const [alert, setAlert] = useState({ open: false, color: "" });
+  const [alertMessage, setAlertMesssage] = useState("");
+
+
  
   const onChange = event => {
     let valid;
@@ -134,7 +140,8 @@ const Contact = () => {
       default:
         break;
     }
-  }; const onConfirm = () => {
+  };
+   const onConfirm = () => {
     setLoading(true);
 
     axios
@@ -156,13 +163,13 @@ const Contact = () => {
         setEmail("");
         setPhone("");
         setMessage("");
-        // setAlert({ open: true, color: "#4BB543" });
-        // setAlertMesssage("Message sent successfully!");
+        setAlert({ open: true, color: "#4BB543" });
+        setAlertMesssage("Message sent successfully!");
       })
       .catch(err => {
        setLoading(false);
-        // setAlert({ open: true, color: "#FF3232" });
-        // setAlertMesssage("Something went wrong! Please try again.");
+        setAlert({ open: true, color: "#FF3232" });
+        setAlertMesssage("Something went wrong! Please try again.");
         console.error(err);
       });
   };
@@ -262,7 +269,11 @@ const Contact = () => {
             <Grid item>
               <TextField label="message"
                 className={classes.message}
-                id="Message" InputProps={{ disableUnderline: true }} multiline rows={10} variant="standard" onChange={(e) => setMessage(e.target.value)} />
+                id="Message" 
+                InputProps={{ disableUnderline: true }} 
+                multiline rows={10} 
+                variant="standard"
+                 onChange={(e) => setMessage(e.target.value)} />
             </Grid>
             <Grid item container justifyContent="center" style={{ marginTop: "2em" }}>
               <Button
@@ -351,6 +362,18 @@ const Contact = () => {
       </DialogContent>
 
       </Dialog>
+      <Snackbar
+        open={alert.open}
+        ContentProps={{
+          style: {
+            backgroundColor: alert.color
+          }
+        }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        message={alertMessage}
+        autoHideDuration={4000}
+        onClose={() => setAlert(false)}
+      />
       <Grid item container
         className={classes.background}
         alignItems="center"
