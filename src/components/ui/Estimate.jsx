@@ -551,17 +551,17 @@ function Estimate() {
       setFeatures(newFeatures);
     }
   };
-  const getCustomFeatures = () => {
-    if (questions.length > 2) {
-      const newCustomFeatures = questions
-        .filter((question) => question.title === "What do you need?")
-        .map((question) =>
-          question.options.filter((option) => option.selected)
-        )[0][0].title;
+  // const getCustomFeatures = () => {
+  //   if (questions.length > 2) {
+  //     const newCustomFeatures = questions
+  //       .filter((question) => question.title === "What do you need?")
+  //       .map((question) =>
+  //         question.options.filter((option) => option.selected)
+  //       )[0][0].title;
 
-      setCustomFeatures(newCustomFeatures);
-    }
-  };
+  //     setCustomFeatures(newCustomFeatures);
+  //   }
+  // };
 
   const sendEstimate = () => {
     setLoading(true);
@@ -997,7 +997,7 @@ function Estimate() {
         </DialogContent>
       </Dialog>
       <Snackbar
-        en={alert.open}
+        open={alert.open}
         ContentProps={{
           style: {
             backgroundColor: alert.color,

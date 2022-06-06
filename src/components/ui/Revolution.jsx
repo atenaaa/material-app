@@ -15,8 +15,7 @@ import launch from "../../assets/launchIcon.svg";
 import maintain from "../../assets/maintainIcon.svg";
 import iterate from "../../assets/iterateIcon.svg";
 import technologyAnimation from "../../animations/technologyAnimation/data.json";
-
-import CallToAction from "./../ui/CallToAction";
+ 
 const useStyles = makeStyles((theme) => ({
   rowContainer: {
     paddingLeft: "5em",
@@ -71,7 +70,7 @@ export default function Revolution() {
             src={vision}
             alt="mountain through binoculars"
             style={{
-              maxWidth: matchesSM ? 300 : "40em",
+              maxWidth: matchesSM ? 300 : "30em",
               marginRight: matchesMD ? 0 : "5em",
               marginBottom: matchesMD ? "5em" : 0,
             }}
@@ -656,7 +655,7 @@ export default function Revolution() {
             src={launch}
             alt="handshake"
             width="100%"
-            style={{ maxWidth: 700 }}
+            style={{ maxWidth: 300 }}
           />
         </Grid>
       </Grid>
