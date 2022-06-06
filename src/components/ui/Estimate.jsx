@@ -1,15 +1,19 @@
-import { Grid, Paper } from "@mui/material";
+import { Grid } from "@mui/material";
 import { Typography } from "@mui/material";
 import { makeStyles, useTheme } from "@mui/styles";
 import IconButton from "@mui/material/IconButton";
+import axios from "axios";
 import { Button } from "@mui/material";
 import Lottie from "react-lottie";
-import { cloneDeep } from 'lodash'
-import { useState } from "react";
+import { cloneDeep } from "lodash";
+import { Fragment, useState } from "react";
 import { Dialog } from "@mui/material";
 import { DialogContent } from "@mui/material";
-import TextField from '@mui/material/TextField';
-import check from "../../assets/check.svg"
+import TextField from "@mui/material/TextField";
+import { Snackbar } from "@mui/material";
+import { CircularProgress } from "@mui/material";
+
+import check from "../../assets/check.svg";
 import send from "../../assets/send.svg";
 import software from "../../assets/software.svg";
 import mobile from "../../assets/mobile.svg";
@@ -42,7 +46,7 @@ import React from "react";
 const useStyle = makeStyles((theme) => ({
   icon: {
     width: "12em",
-    height: "10em"
+    height: "10em",
   },
   estimateButton: {
     ...theme.typography.estimate,
@@ -53,60 +57,60 @@ const useStyle = makeStyles((theme) => ({
     marginTop: "5em",
     fontSize: "1.25rem",
     "&:hover": {
-      backgroundColor: `{theme.palette.secondary.light}!impotant`
-    }
+      backgroundColor: `{theme.palette.secondary.light}!impotant`,
+    },
   },
   message: {
     borderColor: `${theme.palette.common.orange} !important`,
     marginTop: "2em!important",
-    borderRadius: 5,
-    width: '100%',
 
+    borderRadius: 5,
+    width: "100%",
   },
   specialText: {
     fontSize: "1.5rem",
     fontFamily: "Raleway",
     fontWeight: 700,
-    color: theme.palette.common.orange
+    color: theme.palette.common.orange,
+  },
+}));
 
-  }
-}))
-
-const defaultQuestions = [{
-  id: 1,
-  title: "Which service are you interested in?",
-  active: true,
-  options: [
-    {
-      id: 1,
-      title: "Custom Software Development",
-      subtitle: null,
-      icon: software,
-      iconAlt: "three floating screens",
-      selected: false,
-      cost: 0
-    },
-    {
-      id: 2,
-      title: "iOS/Android App Development",
-      subtitle: null,
-      icon: mobile,
-      iconAlt: "outlines of phones and tablets",
-      selected: false,
-      cost: 0
-    },
-    {
-      id: 3,
-      title: "Website Development",
-      subtitle: null,
-      icon: website,
-      iconAlt: "computer outline",
-      selected: false,
-      cost: 0
-    }
-  ]
-}]
-
+const defaultQuestions = [
+  {
+    id: 1,
+    title: "Which service are you interested in?",
+    active: true,
+    options: [
+      {
+        id: 1,
+        title: "Custom Software Development",
+        subtitle: null,
+        icon: software,
+        iconAlt: "three floating screens",
+        selected: false,
+        cost: 0,
+      },
+      {
+        id: 2,
+        title: "iOS/Android App Development",
+        subtitle: null,
+        icon: mobile,
+        iconAlt: "outlines of phones and tablets",
+        selected: false,
+        cost: 0,
+      },
+      {
+        id: 3,
+        title: "Website Development",
+        subtitle: null,
+        icon: website,
+        iconAlt: "computer outline",
+        selected: false,
+        cost: 0,
+      },
+    ],
+  },
+];
 
 const softwareQuestions = [
   { ...defaultQuestions[0], active: false },
@@ -122,7 +126,7 @@ const softwareQuestions = [
         icon: website,
         iconAlt: "computer outline",
         selected: false,
-        cost: 100
+        cost: 100,
       },
       {
         id: 2,
@@ -131,7 +135,7 @@ const softwareQuestions = [
         icon: iPhone,
         iconAlt: "outline of iphone",
         selected: false,
-        cost: 100
+        cost: 100,
       },
       {
         id: 3,
@@ -140,10 +144,10 @@ const softwareQuestions = [
         icon: android,
         iconAlt: "outlines of android phone",
         selected: false,
-        cost: 100
-      }
+        cost: 100,
+      },
     ],
-    active: true
+    active: true,
   },
   {
     id: 3,
@@ -157,7 +161,7 @@ const softwareQuestions = [
         icon: camera,
         iconAlt: "camera outline",
         selected: false,
-        cost: 25
+        cost: 25,
       },
       {
         id: 2,
@@ -166,7 +170,7 @@ const softwareQuestions = [
         icon: gps,
         iconAlt: "gps pin",
         selected: false,
-        cost: 25
+        cost: 25,
       },
       {
         id: 3,
@@ -175,10 +179,10 @@ const softwareQuestions = [
         icon: upload,
         iconAlt: "outline of cloud with arrow pointing up",
         selected: false,
-        cost: 25
-      }
+        cost: 25,
+      },
     ],
-    active: false
+    active: false,
   },
   {
     id: 4,
@@ -192,7 +196,7 @@ const softwareQuestions = [
         icon: users,
         iconAlt: "outline of a person with a plus sign",
         selected: false,
-        cost: 25
+        cost: 25,
       },
       {
         id: 2,
@@ -201,7 +205,7 @@ const softwareQuestions = [
         icon: biometrics,
         iconAlt: "fingerprint",
         selected: false,
-        cost: 25
+        cost: 25,
       },
       {
         id: 3,
@@ -210,10 +214,10 @@ const softwareQuestions = [
         icon: bell,
         iconAlt: "outline of a bell",
         selected: false,
-        cost: 25
-      }
+        cost: 25,
+      },
     ],
-    active: false
+    active: false,
   },
   {
     id: 5,
@@ -227,7 +231,7 @@ const softwareQuestions = [
         icon: info,
         iconAlt: "'i' inside a circle",
         selected: false,
-        cost: 25
+        cost: 25,
       },
       {
         id: 2,
@@ -236,7 +240,7 @@ const softwareQuestions = [
         icon: customized,
         iconAlt: "two toggle switches",
         selected: false,
-        cost: 50
+        cost: 50,
       },
       {
         id: 3,
@@ -245,10 +249,10 @@ const softwareQuestions = [
         icon: data,
         iconAlt: "outline of line graph",
         selected: false,
-        cost: 100
-      }
+        cost: 100,
+      },
     ],
-    active: false
+    active: false,
   },
   {
     id: 6,
@@ -262,7 +266,7 @@ const softwareQuestions = [
         icon: person,
         iconAlt: "person outline",
         selected: false,
-        cost: 1
+        cost: 1,
       },
       {
         id: 2,
@@ -271,7 +275,7 @@ const softwareQuestions = [
         icon: persons,
         iconAlt: "outline of two people",
         selected: false,
-        cost: 1.25
+        cost: 1.25,
       },
       {
         id: 3,
@@ -280,13 +284,12 @@ const softwareQuestions = [
         icon: people,
         iconAlt: "outline of three people",
         selected: false,
-        cost: 1.5
-      }
+        cost: 1.5,
+      },
     ],
-    active: false
-  }
+    active: false,
+  },
 ];
-
 
 const websiteQuestions = [
   { ...defaultQuestions[0], active: false },
@@ -302,7 +305,7 @@ const websiteQuestions = [
         icon: info,
         iconAlt: "person outline",
         selected: false,
-        cost: 100
+        cost: 100,
       },
       {
         id: 2,
@@ -311,7 +314,7 @@ const websiteQuestions = [
         icon: customized,
         iconAlt: "outline of two people",
         selected: false,
-        cost: 200
+        cost: 200,
       },
       {
         id: 3,
@@ -320,34 +323,36 @@ const websiteQuestions = [
         icon: globe,
         iconAlt: "outline of three people",
         selected: false,
-        cost: 250
-      }
+        cost: 250,
+      },
     ],
-    active: true
-  }
+    active: true,
+  },
 ];
 
-
 function Estimate() {
-  const classes = useStyle()
+  const classes = useStyle();
   const theme = useTheme();
 
-
-  const machesMD = useMediaQuery(theme.breakpoints.down("md"))
-  const machesSM = useMediaQuery(theme.breakpoints.down("sm"))
+  const machesMD = useMediaQuery(theme.breakpoints.down("md"));
+  const machesSM = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [questions, setQuestions] = useState(defaultQuestions);
+  const [loading, setLoading] = useState(false);
+
+  const [alert, setAlert] = useState({ open: false, color: "" });
+  const [alertMessage, setAlertMesssage] = useState("");
+
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [name, setName] = useState('')
+  const [name, setName] = useState("");
 
-
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState("");
   const [emailHelper, setEmailHelper] = useState("");
 
-  const [phone, setPhone] = useState('')
+  const [phone, setPhone] = useState("");
   const [phoneHelper, setPhoneHelper] = useState("");
 
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState("");
   const [total, setTotal] = useState(0);
 
   const [service, setService] = useState("");
@@ -357,7 +362,6 @@ function Estimate() {
   const [users, setUsers] = useState("");
   const [category, setCategory] = useState("");
 
-
   const defaultOptions = {
     loop: true,
     autoplay: false,
@@ -366,7 +370,7 @@ function Estimate() {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-  const onChange = event => {
+  const onChange = (event) => {
     let valid;
 
     switch (event.target.id) {
@@ -380,7 +384,6 @@ function Estimate() {
           setEmailHelper("Invalid email");
         } else {
           setEmailHelper("");
-
         }
         break;
       case "phone":
@@ -391,7 +394,6 @@ function Estimate() {
 
         if (!valid) {
           setPhoneHelper("Invalid phone");
-
         } else {
           setPhoneHelper("");
         }
@@ -404,7 +406,7 @@ function Estimate() {
 
   const nextQuestion = () => {
     const newQuestions = cloneDeep(questions);
-    const currentlyActive = newQuestions.filter(question => question.active);
+    const currentlyActive = newQuestions.filter((question) => question.active);
     const activeIndex = currentlyActive[0].id - 1;
     const nextIndex = activeIndex + 1;
     newQuestions[activeIndex] = { ...currentlyActive[0], active: false };
@@ -417,7 +419,7 @@ function Estimate() {
 
   const previousQuestion = () => {
     const newQuestions = cloneDeep(questions);
-    const currentlyActive = newQuestions.filter(question => question.active);
+    const currentlyActive = newQuestions.filter((question) => question.active);
     const activeIndex = currentlyActive[0].id - 1;
     const nextIndex = activeIndex - 1;
     newQuestions[activeIndex] = { ...currentlyActive[0], active: false };
@@ -426,91 +428,86 @@ function Estimate() {
   };
 
   const navigationPreviousDisabled = () => {
-    const currentlyActive = questions.filter(question => question.active);
+    const currentlyActive = questions.filter((question) => question.active);
     if (currentlyActive[0].id === 1) {
       return true;
+    } else {
+      return false;
     }
-    else {
-      return false
-    }
-  }
+  };
   const navigationNextDisabled = () => {
-    const currentlyActive = questions.filter(question => question.active);
+    const currentlyActive = questions.filter((question) => question.active);
     if (currentlyActive[0].id === questions[questions.length - 1].id) {
       return true;
+    } else {
+      return false;
     }
-    else {
-      return false
-    }
-  }
+  };
   const handleSelect = (id) => {
-    const newQuestions = cloneDeep(questions)
-    const currentlyActive = questions.filter(question => question.active);
+    const newQuestions = cloneDeep(questions);
+    const currentlyActive = questions.filter((question) => question.active);
     const activeIndex = currentlyActive[0].id - 1;
     const newSelected = newQuestions[activeIndex].options[id - 1];
-    const previousSelected = currentlyActive[0].options.filter(option => option.selected)
-
+    const previousSelected = currentlyActive[0].options.filter(
+      (option) => option.selected
+    );
 
     switch (currentlyActive[0].subtitle) {
-      case 'Select one':
+      case "Select one":
         if (previousSelected[0]) {
-          previousSelected[0].selected = !previousSelected[0].selected
+          previousSelected[0].selected = !previousSelected[0].selected;
         }
-        newSelected.selected = !newSelected.selected
+        newSelected.selected = !newSelected.selected;
         break;
       default:
-        newSelected.selected = !newSelected.selected
+        newSelected.selected = !newSelected.selected;
         break;
     }
 
     switch (newSelected.title) {
-      case 'Custom Software Development':
+      case "Custom Software Development":
         setQuestions(softwareQuestions);
         setService(newSelected.title);
-
-
 
         break;
       case "iOS/Android App Development":
         setQuestions(softwareQuestions);
         setService(newSelected.title);
         setPlatforms([]);
-        setFeatures([])
-        setCustomFeatures("")
-        setCategory("")
-        setUsers("")
+        setFeatures([]);
+        setCustomFeatures("");
+        setCategory("");
+        setUsers("");
 
-        break
+        break;
       case "Website Development":
         setQuestions(websiteQuestions);
         setService(newSelected.title);
-        break
+        break;
 
       default:
         setQuestions(newQuestions);
-
     }
-
-  }
+  };
   const getTotal = () => {
     let cost = 0;
 
     const selections = questions
-      .map(question => question.options.filter(option => option.selected))
-      .filter(question => question.length > 0);
+      .map((question) => question.options.filter((option) => option.selected))
+      .filter((question) => question.length > 0);
 
-    selections.map(options => options.map(option => (cost += option.cost)));
+    selections.map((options) => options.map((option) => (cost += option.cost)));
     console.log(selections);
     if (questions.length > 2) {
       const userCost = questions
-        .filter(question => question.title === "How many users do you expect?")
-        .map(question =>
-          question.options.filter(option => option.selected)
+        .filter(
+          (question) => question.title === "How many users do you expect?"
+        )
+        .map((question) =>
+          question.options.filter((option) => option.selected)
         )[0][0];
 
-
-
-      setUsers(userCost.title)
+      setUsers(userCost.title);
 
       cost -= userCost.cost;
       cost *= userCost.cost;
@@ -525,11 +522,13 @@ function Estimate() {
 
       questions
         .filter(
-          question =>
+          (question) =>
             question.title === "Which platforms do you need supported?"
         )
-        .map(question => question.options.filter(option => option.selected))[0]
-        .map(option => newPlatforms.push(option.title));
+        .map((question) =>
+          question.options.filter((option) => option.selected)
+        )[0]
+        .map((option) => newPlatforms.push(option.title));
 
       setPlatforms(newPlatforms);
     }
@@ -541,11 +540,12 @@ function Estimate() {
 
       questions
         .filter(
-          question => question.title === "Which features do you expect to use?"
+          (question) =>
+            question.title === "Which features do you expect to use?"
         )
-        .map(question => question.options.filter(option => option.selected))
-        .map(option =>
-          option.map(newFeature => newFeatures.push(newFeature.title))
+        .map((question) => question.options.filter((option) => option.selected))
+        .map((option) =>
+          option.map((newFeature) => newFeatures.push(newFeature.title))
         );
 
       setFeatures(newFeatures);
@@ -554,94 +554,233 @@ function Estimate() {
   const getCustomFeatures = () => {
     if (questions.length > 2) {
       const newCustomFeatures = questions
-        .filter(
-          question =>
-            question.title ===
-            "What do you need?"
-        )
-        .map(question =>
-          question.options.filter(option => option.selected)
+        .filter((question) => question.title === "What do you need?")
+        .map((question) =>
+          question.options.filter((option) => option.selected)
         )[0][0].title;
 
       setCustomFeatures(newCustomFeatures);
     }
   };
 
+  const sendEstimate = () => {
+    setLoading(true);
+
+    axios
+      .get("https://jsonplaceholder.typicode.com/todos/1", {
+        params: {
+          email: email,
+          name: name,
+          phone: phone,
+          message: message,
+          total: total,
+          category: category,
+          service: service,
+          platforms: platforms,
+          features: features,
+          customFeatures: customFeatures,
+          users: users,
+        },
+      })
+
+      .then((res) => {
+        setLoading(false);
+        setAlert({ open: true, color: "#4BB543" });
+        setAlertMesssage("Message sent successfully!");
+        setDialogOpen(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setAlert({ open: true, color: "#FF3232" });
+        setAlertMesssage("Something went wrong! Please try again.");
+        console.error(err);
+      });
+  };
+
+  const estimateDisabled = () => {
+    // let disabled = true;
+    // const emptySelections = questions
+    //   .map((question) => question.options.filter((option) => option.selected))
+    //   .filter((question) => question.length === 0);
+    // if (questions.length === 2) {
+    //   if (emptySelections.length === 1) {
+    //     //disabled = false;
+    //     return false;
+    //   }
+    // } else if (questions.length === 1) {
+    //   //disabled = true;
+    //   return true;
+    // } else {
+    //   if (
+    //     emptySelections.length < 3 &&
+    //     questions[questions.length - 1].options.filter(
+    //       (option) => option.selected
+    //     ).length > 0
+    //   ) {
+    //     // disabled = false;
+    //     return false;
+    //   }
+    // }
+    // return disabled;
+  };
   return (
     <Grid container direction="row">
       {/*  */}
-      <Grid item container direction="column" lg>
-        <Grid item style={{ marginTop: "2em", marginLeft: "5em" }}>
-          <Typography variant="h2">
+      <Grid
+        item
+        container
+        direction="column"
+        lg
+        alignItems={machesMD ? "center" : undefined}
+      >
+        <Grid
+          item
+          style={{ marginTop: "2em", marginLeft: machesMD ? 0 : "5em" }}
+        >
+          <Typography variant="h2" align={machesMD ? "center" : undefined}>
             Estimate
           </Typography>
         </Grid>
-        <Grid item style={{ marginRight: "10em", maxWidth: "50em", marginTop: "7.5em" }}>
+        <Grid
+          item
+          style={{
+            marginRight: machesMD ? 0 : "10em",
+            maxWidth: "50em",
+            marginTop: "7.5em",
+          }}
+        >
           <Lottie options={defaultOptions} width="100%" height="100%" />
         </Grid>
       </Grid>
       {/*  */}
-      <Grid item
+      <Grid
+        item
         container
-        alignItems='center'
+        alignItems="center"
         direction="column"
         lg
-        style={{ marginRight: "2em", marginBottom: "15em" }}>
-        {questions.filter(question => question.active).map((question, index) => (
-          <React.Fragment key={index}>
-            <Grid item >
-              <Typography
-                variant="h2"
-                alignItems="center"
-                gutterBottom
-                style={{ fontWeight: 500, marginTop: "5em", fontSize: "1.25rem", lineHeight: "1.25" }}>
-                {question.title}
-              </Typography>
-              <Typography
-                variant="body1" align="center" style={{ marginBottom: "2.5" }} gutterBottom>
-                {question.subtitle}
-              </Typography>
-            </Grid>
+        style={{ marginRight: machesMD ? 0 : "2em", marginBottom: "15em" }}
+      >
+        {questions
+          .filter((question) => question.active)
+          .map((question, index) => (
+            <React.Fragment key={index}>
+              <Grid item>
+                <Typography
+                  variant="h2"
+                  alignItems="center"
+                  gutterBottom
+                  style={{
+                    fontWeight: 500,
+                    marginTop: "5em",
+                    fontSize: "1.25rem",
+                    lineHeight: "1.25",
+                  }}
+                >
+                  {question.title}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  align="center"
+                  style={{ marginBottom: "2.5" }}
+                  gutterBottom
+                >
+                  {question.subtitle}
+                </Typography>
+              </Grid>
 
-            <Grid item container>
-              {question.options.map(option => (
-                <Grid container direction="column" md onClick={() => handleSelect(option.id)} component={Button} style={{ display: "grid", borderRadius: 0, textTransform: "none", backgroundColor: option.selected ? theme.palette.common.orange : null }}>
-                  <Grid item style={{ maxWidth: "14em" }} >
-                    <Typography variant="h6" align="center" gutterBottom style={{ marginBottom: "1em" }} >
-                      {option.title}
-                    </Typography>
-                    <Typography variant="caption" align="center">
-                      {option.subtitle}
-
-                    </Typography>
+              <Grid item container>
+                {question.options.map((option) => (
+                  <Grid
+                    container
+                    direction="column"
+                    md
+                    onClick={() => handleSelect(option.id)}
+                    component={Button}
+                    style={{
+                      display: "grid",
+                      borderRadius: 0,
+                      marginBottom: machesSM ? "1.5" : 0,
+                      textTransform: "none",
+                      backgroundColor: option.selected
+                        ? theme.palette.common.orange
+                        : null,
+                    }}
+                  >
+                    <Grid item style={{ maxWidth: "14em" }}>
+                      <Typography
+                        variant="h6"
+                        align="center"
+                        gutterBottom
+                        style={{ marginBottom: "1em" }}
+                      >
+                        {option.title}
+                      </Typography>
+                      <Typography variant="caption" align="center">
+                        {option.subtitle}
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                      <img
+                        src={option.icon}
+                        alt={option.iconAlt}
+                        className={classes.icon}
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item>
-                    <img src={option.icon} alt={option.iconAlt} className={classes.icon} />
-                  </Grid>
-                </Grid>
-              ))}
-            </Grid>
-          </React.Fragment>
-        ))}
+                ))}
+              </Grid>
+            </React.Fragment>
+          ))}
 
-        <Grid item container justifyContent="space-between" style={{ width: "18em", marginTop: "3em" }}>
+        <Grid
+          item
+          container
+          justifyContent="space-between"
+          style={{ width: "18em", marginTop: "3em" }}
+        >
           <Grid item>
-            <IconButton disabled={navigationPreviousDisabled()} onClick={previousQuestion}>
-              <img src={navigationPreviousDisabled() ? backArrowDisabled : backArrow} alt="previos question" />
+            <IconButton
+              disabled={navigationPreviousDisabled()}
+              onClick={previousQuestion}
+            >
+              <img
+                src={
+                  navigationPreviousDisabled() ? backArrowDisabled : backArrow
+                }
+                alt="previos question"
+              />
             </IconButton>
           </Grid>
           <Grid item>
-            <IconButton onClick={nextQuestion} disabled={navigationNextDisabled()}>
-              <img src={navigationNextDisabled() ? forwardArrowDisabled : forwardArrow} alt="next question" />
+            <IconButton
+              onClick={nextQuestion}
+              disabled={navigationNextDisabled()}
+            >
+              <img
+                src={
+                  navigationNextDisabled() ? forwardArrowDisabled : forwardArrow
+                }
+                alt="next question"
+              />
             </IconButton>
           </Grid>
         </Grid>
         <Grid item mt={3}>
-          <Button variant="contained" onClick={() => { setDialogOpen(true); getTotal(); getPlatforms(); getFeatures(); getCustomFeatures() }} className={classes.estimateButton}>
+          <Button
+            variant="contained"
+            disabled={estimateDisabled()}
+            onClick={() => {
+              setDialogOpen(true);
+              getTotal();
+              getPlatforms();
+              getFeatures();
+            }}
+            className={classes.estimateButton}
+          >
             Get estimate
           </Button>
         </Grid>
-
       </Grid>
       <Dialog
         style={{ zIndex: 1302 }}
@@ -649,25 +788,41 @@ function Estimate() {
         open={dialogOpen}
         fullWidth=""
         maxWidth="lg"
-        PaperProps={{ style: { paddingTop: machesMD ? "0" : "3em", paddingBottom: machesMD ? "0" : "3em", paddingLeft: machesMD ? "0" : "5em", paddingRight: machesMD ? "0" : "5em" } }}
-        onClose={() => setDialogOpen(false)}>
-        <Grid container justifyContent="center">
-
-        </Grid>
+        PaperProps={{
+          style: {
+            paddingTop: machesMD ? "0" : "3em",
+            paddingBottom: machesMD ? "0" : "3em",
+            paddingLeft: machesMD ? "0" : "5em",
+            paddingRight: machesMD ? "0" : "5em",
+          },
+        }}
+        onClose={() => setDialogOpen(false)}
+      >
+        <Grid container justifyContent="center"></Grid>
         <DialogContent>
-          <Grid item>
-            <Typography variant="h2" align="center">Estimate</Typography>
+          <Grid
+            item
+            style={{ marginTop: "1em", marginBottom: machesMD ? 0 : "5em" }}
+          >
+            <Typography
+              variant="h2"
+              alignItems={machesMD ? "center" : undefined}
+            >
+              Estimate
+            </Typography>
           </Grid>
           <Grid container justifyContent="space-around">
             <Grid item md={7} pr={3}>
-
-              <Grid item container direction="column" >
+              <Grid item container direction="column">
                 <Grid item style={{ marginBottom: "0.5em" }}>
-                  <TextField label="name"
-                    fullWidth id="name"
+                  <TextField
+                    label="name"
+                    fullWidth
+                    id="name"
                     variant="standard"
                     value={name}
-                    onChange={(e) => setName(e.target.value)} />
+                    onChange={(e) => setName(e.target.value)}
+                  />
                 </Grid>
                 <Grid item style={{ marginBottom: "0.5em" }}>
                   <TextField
@@ -694,55 +849,57 @@ function Estimate() {
                   />
                 </Grid>
               </Grid>
-              <Grid item style={{ maxWidth: "20em" }} mb={3}>
-                <TextField label="message"
+              <Grid
+                item
+                style={{ maxWidth: machesSM ? "100%" : "20em" }}
+                mb={3}
+              >
+                <TextField
+                  label="message"
                   className={classes.message}
                   id="Message"
                   value={message}
                   InputProps={{ disableUnderline: true }}
-                  multiline rows={5}
-
-                  onChange={(e) => setMessage(e.target.value)} />
+                  multiline
+                  rows={5}
+                  onChange={(e) => setMessage(e.target.value)}
+                />
               </Grid>
               <Grid item>
                 <Typography variant="body1" paragraph>
                   we can create this digital solution for an estimated
-
                   <span className={classes.specialText}>
                     ${total.toFixed(2)}
-                    {platforms.length > 0 ? `for ${
-                      //if only web application is selected...
-                      platforms.indexOf("Web Application") > -1 &&
-                        platforms.length === 1
-                        ? //then finish sentence here
-                        "a Web Application."
-                        : //otherwise, if web application and another platform is selected...
-                        platforms.indexOf("Web Application") > -1 &&
-                          platforms.length === 2
-                          ? //then finish the sentence here
-                          `a Web Application and an ${platforms[1]}.`
-                          : //otherwise, if only one platform is selected which isn't web application...
+                    {platforms.length > 0
+                      ? `for ${
+                          //if only web application is selected...
+                          platforms.indexOf("Web Application") > -1 &&
                           platforms.length === 1
+                            ? //then finish sentence here
+                              "a Web Application."
+                            : //otherwise, if web application and another platform is selected...
+                            platforms.indexOf("Web Application") > -1 &&
+                              platforms.length === 2
                             ? //then finish the sentence here
-                            `an ${platforms[0]}`
+                              `a Web Application and an ${platforms[1]}.`
+                            : //otherwise, if only one platform is selected which isn't web application...
+                            platforms.length === 1
+                            ? //then finish the sentence here
+                              `an ${platforms[0]}`
                             : //otherwise, if other two options are selected...
                             platforms.length === 2
-                              ? //then finish the sentence here
+                            ? //then finish the sentence here
                               "an iOS Application and an Android Application."
-                              : //otherwise if all three are selected...
-                              platforms.length === 3
-                                ? //then finish the sentence here
-                                "a Web Application, an iOS Application, and an Android Application."
-                                : null
-                      }` : null}
-
+                            : //otherwise if all three are selected...
+                            platforms.length === 3
+                            ? //then finish the sentence here
+                              "a Web Application, an iOS Application, and an Android Application."
+                            : null
+                        }`
+                      : null}
                   </span>
                 </Typography>
-                <Typography
-                  variant="body1"
-                  paragraph
-
-                >
+                <Typography variant="body1" paragraph>
                   Fill out your name, number, and email, place your request, and
                   we’ll get back to you with details moving forward and a final
                   price.
@@ -750,19 +907,17 @@ function Estimate() {
               </Grid>
             </Grid>
 
-
             <Grid item md={5} mt={5}>
-              <Grid item container >
+              <Grid item container>
                 <Grid item container alignItems="center">
                   <Grid item xs={2}>
-                    <img src={check} alt="checkmark" width='20' />
+                    <img src={check} alt="checkmark" width="20" />
                   </Grid>
                   <Grid item xs={10}>
-                    <Typography variant="body1">
-                      you want {service} </Typography>
+                    <Typography variant="body1">you want {service} </Typography>
                   </Grid>
                   <Grid item xs={2}>
-                    <img src={check} alt="checkmark" width='20' />
+                    <img src={check} alt="checkmark" width="20" />
                   </Grid>
                   <Grid item xs={10}>
                     <Typography variant="body1">
@@ -771,14 +926,14 @@ function Estimate() {
                       {/* if we have features... */}
                       {features.length > 0
                         ? //...and there's only 1...
-                        features.length === 1
+                          features.length === 1
                           ? //then end the sentence here
-                          `${features[0]}.`
+                            `${features[0]}.`
                           : //otherwise, if there are two features...
                           features.length === 2
-                            ? //...then end the sentence here
+                          ? //...then end the sentence here
                             `${features[0]} and ${features[1]}.`
-                            : //otherwise, if there are three or more features...
+                          : //otherwise, if there are three or more features...
                             features
                               //filter out the very last feature...
                               .filter(
@@ -792,41 +947,69 @@ function Estimate() {
                         : null}
                       {features.length > 2
                         ? //...and then finally add the last feature with 'and' in front of it
-                        ` and ${features[features.length - 1]}.`
+                          ` and ${features[features.length - 1]}.`
                         : null}
                     </Typography>
                   </Grid>
                   <Grid item xs={2}>
-                    <img src={check} alt="checkmark" width='20' />
+                    <img src={check} alt="checkmark" width="20" />
                   </Grid>
                   <Grid item xs={10}>
-                    <Typography variant="body1">Thired{customFeatures.toLowerCase()}
+                    <Typography variant="body1">
+                      Thired{customFeatures.toLowerCase()}
                       {`project while be used${users} user`}
                     </Typography>
                   </Grid>
                 </Grid>
                 <Grid item mt={3}>
-                  <Button variant="contained" className={classes.estimateButton}>
-                    place request
-                    <img src={send} alt="send" />
+                  <Button
+                    onClick={sendEstimate}
+                    variant="contained"
+                    className={classes.estimateButton}
+                  >
+                    {loading ? (
+                      <CircularProgress />
+                    ) : (
+                      <Fragment>
+                        place request
+                        <img src={send} alt="send" />
+                      </Fragment>
+                    )}
                   </Button>
                 </Grid>
 
+                <Grid
+                  item
+                  mt={3}
+                  style={{ marginBottom: machesSM ? "5em" : 0 }}
+                >
+                  <Button
+                    style={{ fontWeight: 300 }}
+                    color="primary"
+                    onClick={() => setDialogOpen(false)}
+                  >
+                    Cancel
+                  </Button>
+                </Grid>
               </Grid>
-
             </Grid>
-
           </Grid>
-
-
-
-
         </DialogContent>
       </Dialog>
+      <Snackbar
+        en={alert.open}
+        ContentProps={{
+          style: {
+            backgroundColor: alert.color,
+          },
+        }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        message={alertMessage}
+        autoHideDuration={4000}
+        onClose={() => setAlert(false)}
+      />
     </Grid>
-
-
-  )
+  );
 }
 
 export default Estimate;
