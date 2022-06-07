@@ -12,6 +12,8 @@ import analytics from "../../assets/analytics.svg";
 import seo from "../../assets/seo.svg";
 import outReach from "../../assets/outreach.svg"
 import ecommerce from "../../assets/ecommerce.svg"
+import CallToAction from "./CallToAction";
+ 
 
 const useStyle = makeStyles((theme) => ({
   heading: {
@@ -241,6 +243,9 @@ function Websites({ setSelectedIndex }) {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto ipsum aspernatur dolor error sint deleniti in, enim reprehenderit,
             </Typography>
           </Grid>
+      </Grid>
+      <Grid item>
+        <CallToAction />
       </Grid>
     </Grid>
 

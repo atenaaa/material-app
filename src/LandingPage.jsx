@@ -13,9 +13,9 @@ import CardContent from '@mui/material/CardContent';
 import CallToAction from "../src/components/ui/CallToAction"
 
 import animationData from "./animations/landinganimation/data";
-import customsofware from "../src/assets/CustomSoftwareIcon.svg";
-import mobileAppIcon from "../src/assets/mobileIcon.svg";
-import webSiteIcon from "../src/assets/websiteIcon.svg";
+import customSoftwareIcon from "../src/assets/CustomSoftwareIcon.svg";
+import mobileAppsIcon from "../src/assets/mobileIcon.svg";
+import websitesIcon from "../src/assets/websiteIcon.svg";
 import revelotionBackground from "../src/assets/repeatingBackground.svg"
 import infoBackground from "../src/assets/infoBackground.svg"
 
@@ -122,10 +122,11 @@ const useStyle = makeStyles((theme) => ({
 
 }));
 
-function LandingPage( ) {
+function LandingPage({setSelectedIndex,setValue} ) {
   const classes = useStyle();
   const theme = useTheme();
-  const machesSm = useMediaQuery(theme.breakpoints.down("sm"));
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
+
 
 
   const defaultOptions = {
@@ -141,7 +142,7 @@ function LandingPage( ) {
       container
       direction="column"
       className={classes.mainContainer}
-      justify={machesSm ? "center" : undefined}
+      justify={matchesSM ? "center" : undefined}
     >
       <Grid item>
         {/*--hero block--*/}
@@ -187,128 +188,171 @@ function LandingPage( ) {
       </Grid>
       <Grid item>
         {/* --custom software block -- */}
-        <Grid container direction="row" className={classes.servicesContainer}>
-          <Grid
-            item
-            style={{
-              marginLeft: machesSm ? 0 : "5em",
-              textAlign: machesSm ? "center" : undefined,
-            }}
-          >
-            <Typography variant="h4">Custom Software Development</Typography>
-            <Typography variant="subtitle1" className={classes.subtitle}>
-              Save Energy. Save Time. Save Money.
-            </Typography>
-            <Typography variant="subtitle1">
+        <Grid
+       container
+       direction="row"
+       justifyContent={matchesSM ? "center" : undefined}
+       className={classes.servicesContainer}
+       style={{marginButton:"10em"}}
+     >
+       <Grid
+         item
+      
+         style={{
+            marginLeft: matchesSM ? 0 : "5em",
+           textAlign: matchesSM ? "center" : undefined,
+           width: matchesSM ? undefined : "35em"
+         }}
+       >
+         <Typography variant="h4">Custom Software Development</Typography>
+         <Typography variant="subtitle1" className={classes.subtitle}>
+           Reach More. Discover More. Sell More.
+         </Typography>
+         <Typography variant="subtitle1">
               Complete digital solutions, from investigation to{" "}
               <span className={classes.specialText}>celebration.</span>
             </Typography>
-            <Button variant="outlined" className={classes.learnButton}
-                component={Link}
-                to="/customsoftware"
-             >
-            
-              <span style={{ marginRight: "10px" }}>Learn More</span>
-              <ButtonArrow
-                width={15}
-                height={15}
-                fill={theme.palette.common.blue}
-              />
-            </Button>
-          </Grid>
-          <Grid item>
-            <img
-              className={classes.icon}
-              src={customsofware}
-              alt="custo software"
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item>
-        {/* -- ios/android block -- */}
-        <Grid
-          container
-          direction="row"
-          className={classes.servicesContainer}
-          justifyContent={machesSm ? "center" : "flex-end"}
-        >
-          <Grid
-            item
-            style={{
-              marginLeft: machesSm ? 0 : "5em",
-              textAlign: machesSm ? "center" : undefined,
-            }}
-          >
-            <Typography variant="h4">Ios/Android App Development</Typography>
-            <Typography variant="subtitle1" className={classes.subtitle}>
-              Extend Functionality. Extend Access. Increase Engagement.
-            </Typography>
-            <Typography variant="subtitle1">
-              Integrate your web experience or create a standalone app
-              {machesSm ? null : <br />}with either mobile platform.
-            </Typography>
-            <Button variant="outlined"   
+         <Button
+           component={Link}
+           to="/customsoftware"
+           variant="outlined"
+           className={classes.learnButton}
+           onClick={() => {
+             setValue(1);
+             setSelectedIndex(3);
+           }}
+         >
+           <span style={{ marginRight: 10 }}>Learn More</span>
+           <ButtonArrow
+             width={10}
+             height={10}
+             fill={theme.palette.common.blue}
              component={Link}
-              to="/mobileapps" className={classes.learnButton}>
-              {" "}
-              <span style={{ marginRight: "10px" }}>Learn More</span>
-              <ButtonArrow
-                width={15}
-                height={15}
-                fill={theme.palette.common.blue}
-              />
-            </Button>
-          </Grid>
-          <Grid item  style={{ marginRight: machesSm ? 0 : "5em" }}>
-            <img
-              className={classes.icon}
-              src={mobileAppIcon}
-              alt="custo software"
-            />
-          </Grid>
-        </Grid>
+             to="/services"
+           />
+         </Button>
+       </Grid>
+       <Grid item style={{
+           marginRight: matchesSM ? 0 : "5em",}}>
+         <img
+           className={classes.icon}
+           alt="website icon"
+           src={customSoftwareIcon }
+           width="250em"
+         />
+       </Grid>
+     </Grid>
       </Grid>
+ 
       <Grid item>
-        {/* --custom software block -- */}
-        <Grid
-          container
-          direction="row"
-          className={classes.servicesContainer}
-          justify={machesSm ? "center" : undefined}
-        >
-          <Grid
-            item
-            style={{
-              marginLeft: machesSm ? 0 : "5em",
-              textAlign: machesSm ? "center" : undefined,
-            }}
-          >
-            <Typography variant="h4">Website Development</Typography>
-            <Typography variant="subtitle1" className={classes.subtitle}>
-              Reach More. Discover More. Sell More.
+     {/*-----Websites Block-----*/}
+     <Grid
+       container
+       direction="row"
+       justifyContent={matchesSM ? "center" : "flex-end"}
+       className={classes.servicesContainer}
+       style={{marginButton:"10em"}}
+     >
+       <Grid
+         item
+         style={{
+           textAlign: matchesSM ? "center" : undefined
+         }}
+       >
+         <Typography variant="h4">Website Development</Typography>
+         <Typography variant="subtitle1" className={classes.subtitle}>
+           Reach More. Discover More. Sell More.
+         </Typography>
+         <Typography variant="subtitle1">
+           Optimized for Search Engines, built for speed.
+         </Typography>
+         <Button
+           component={Link}
+           to="/websites"
+           variant="outlined"
+           className={classes.learnButton}
+           onClick={() => {
+             setValue(1);
+             setSelectedIndex(3);
+           }}
+         >
+           <span style={{ marginRight: 10 }} mt={2} mb={2}>Learn More</span>
+           <ButtonArrow
+             width={10}
+             height={10}
+             fill={theme.palette.common.blue}
+           />
+         </Button>
+       </Grid>
+       <Grid item style={{
+           marginRight: matchesSM ? 0 : "5em",}}>
+         <img
+           className={classes.icon}
+           alt="website icon"
+           src={websitesIcon}
+           width="250em"
+         />
+       </Grid>
+     </Grid>
+   </Grid>
+      <Grid item>
+     {/*-----Websites Block-----*/}
+     <Grid
+       container
+       direction="row"
+       justifyContent={matchesSM ? "center" : undefined}
+       className={classes.servicesContainer}
+       style={{marginButton:"10em"}}
+     >
+       <Grid
+         item
+      
+         style={{
+            marginLeft: matchesSM ? 0 : "5em",
+           textAlign: matchesSM ? "center" : undefined,
+           width: matchesSM ? undefined : "35em"
+         }}
+       >
+          <Typography variant="h4">Ios/Android App Development</Typography>
+         <Typography variant="subtitle1" className={classes.subtitle}>
+           Reach More. Discover More. Sell More.
+         </Typography>
+         <Typography variant="subtitle1">
+              Complete digital solutions, from investigation to{" "}
+              <span className={classes.specialText}>celebration.</span>
             </Typography>
-            <Typography variant="subtitle1">
-              Optimized for Search Engines, built for speed.
-            </Typography>
-            <Button variant="outlined"
-             className={classes.learnButton}
-               component={Link}
-               to="/websites">
-             
-              <span style={{ marginRight: "10px" }}>Learn More</span>
-              <ButtonArrow
-                width={15}
-                height={15}
-                fill={theme.palette.common.blue}
-              />
-            </Button>
-          </Grid>
-          <Grid item>
-            <img className={classes.icon} src={webSiteIcon} alt="website" />
-          </Grid>
-        </Grid>
-      </Grid>
+         <Button
+           component={Link}
+           to="/customsoftware"
+           variant="outlined"
+           className={classes.learnButton}
+           onClick={() => {
+             setValue(1);
+             setSelectedIndex(3);
+           }}
+         >
+           <span style={{ marginRight: 10 }}>Learn More</span>
+           <ButtonArrow
+             width={10}
+             height={10}
+             fill={theme.palette.common.blue}
+             component={Link}
+             to="/services"
+           />
+         </Button>
+       </Grid>
+       <Grid item style={{
+           marginRight: matchesSM ? 0 : "5em",}}>
+         <img
+           className={classes.icon}
+           alt="website icon"
+           src={mobileAppsIcon }
+           width="250em"
+         />
+       </Grid>
+     </Grid>
+   </Grid>
+
       {/*-----The Revolution Block-----*/}
       <Grid item >
         <Grid container alignItems="center" justifyContent="center" style={{ height: "70em", marginTop: "12em" }}>
@@ -356,12 +400,12 @@ function LandingPage( ) {
             container
             style={{
               position: "absolute",
-              textAlign: machesSm ? "center" : "inherit"
+              textAlign: matchesSM ? "center" : "inherit"
             }}
-            direction={machesSm ? "column" : "row"}
-            spacing={machesSm ? 10 : 0}
+            direction={matchesSM ? "column" : "row"}
+            spacing={matchesSM ? 10 : 0}
           >
-            <Grid item sm style={{ marginLeft: machesSm ? 0 : machesSm ? "2em" : "5em" }}>
+            <Grid item sm style={{ marginLeft: matchesSM ? 0 : matchesSM ? "2em" : "5em" }}>
               <Grid container direction="column">
                 <Typography variant="h2" style={{ color: "white" }}>About Us</Typography>
                 <Typography variant="subtitle2"> Let's get personal.</Typography>
@@ -387,8 +431,8 @@ function LandingPage( ) {
             </Grid>
 
             <Grid item sm style={{
-              marginRight: machesSm ? 0 : machesSm ? "2em" : "5em",
-              textAlign: machesSm ? "center" : "right"
+              marginRight: matchesSM ? 0 : matchesSM ? "2em" : "5em",
+              textAlign: matchesSM ? "center" : "right"
             }}>
               <Grid container direction="column">
                 <Typography variant="h2" style={{ color: "white" }}>Contact Us</Typography>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { Typography } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
- 
+
 import roots from "../src/assets/root.svg"
 
 import backArrow from "../src/assets/backArrow.svg"
@@ -17,6 +17,7 @@ import documentsAnimation from "../src/animations/documentsAnimation/data"
 import scaleAnimation from "../src/animations/scaleAnimation/data.json"
 import automationAnimation from "../src/animations/automationAnimation/data.json"
 import uxAnimation from "../src/animations/uxAnimation/data"
+import CallToAction from "../src/components/ui/CallToAction";
 
 
 
@@ -36,7 +37,7 @@ const useStyle = makeStyles((theme) => ({
   itemContainer: {
     maxWidth: "40em"
   },
-  rowContainer:{
+  rowContainer: {
     maxWidth: "40em"
   }
 
@@ -57,7 +58,7 @@ export default function CustomSoftware({ setSelectedIndex }) {
   const scaleOptions = {
     loop: true,
     autoplay: false,
-    animationData: scaleAnimation ,
+    animationData: scaleAnimation,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
     },
@@ -65,7 +66,7 @@ export default function CustomSoftware({ setSelectedIndex }) {
   const automationOptions = {
     loop: true,
     autoplay: false,
-    animationData: automationAnimation ,
+    animationData: automationAnimation,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
     },
@@ -73,7 +74,7 @@ export default function CustomSoftware({ setSelectedIndex }) {
   const uxOptions = {
     loop: true,
     autoplay: false,
-    animationData: uxAnimation ,
+    animationData: uxAnimation,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
     },
@@ -82,7 +83,10 @@ export default function CustomSoftware({ setSelectedIndex }) {
 
   const classes = useStyle()
   const theme = useTheme();
-  const matchesMD = useMediaQuery(theme.breakpoints.down("sm"));
+  const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
+
+
+
   return (
 
     <Grid container direction="column">
@@ -109,7 +113,7 @@ export default function CustomSoftware({ setSelectedIndex }) {
             <img src={backArrow} alt="Back to Services Page" />
           </IconButton>
         </Grid>
-        
+
         <Grid item container direction="column" className={classes.heading}>
           <Grid item>
             <Typography align={matchesMD ? "center" : undefined} variant="h2">
@@ -236,19 +240,19 @@ export default function CustomSoftware({ setSelectedIndex }) {
               </Grid>
             </Grid>
             <Grid item md>
-              <Lottie options={documentsOptions} isStopped   style={{ maxHeight: 275, maxWidth: 275, minHeight: 250 }}/>
+              <Lottie options={documentsOptions} isStopped style={{ maxHeight: 275, maxWidth: 275, minHeight: 250 }} />
             </Grid>
           </Grid>
           <Grid item container className={classes.itemContainer} md>
-          <Grid item md>
-              <Lottie options={scaleOptions } 
-               isStopped={true}
-               style={{ maxHeight: 260, maxWidth: 280 }}/>
+            <Grid item md>
+              <Lottie options={scaleOptions}
+                isStopped={true}
+                style={{ maxHeight: 260, maxWidth: 280 }} />
             </Grid>
             <Grid item container direction="column" md>
               <Grid item>
-                <Typography variant="h4" paragraph   align="right" >
-                Scale
+                <Typography variant="h4" paragraph align="right" >
+                  Scale
                 </Typography>
               </Grid>
               <Typography
@@ -258,18 +262,17 @@ export default function CustomSoftware({ setSelectedIndex }) {
                 off right now, our application architecture ensures pain-free
                 growth and reliability.
               </Typography>
-         
+
             </Grid>
-        
+
           </Grid>
         </Grid>
-        
       </Grid>
       <Grid
         item
         container
         direction="row"
-        style={{  marginBottom: "10em" }}
+        style={{ marginBottom: "10em" }}
         className={classes.rowContainer}
       >
         <Grid item container direction="column" alignItems="center">
@@ -277,7 +280,7 @@ export default function CustomSoftware({ setSelectedIndex }) {
             <img
               src={roots}
               alt="tree with roots extending out"
- style={{height:"30em",width:"30em"}}
+              style={{ height: "30em", width: "30em" }}
             />
           </Grid>
           <Grid item className={classes.itemContainer}>
@@ -293,66 +296,91 @@ export default function CustomSoftware({ setSelectedIndex }) {
               technology.
             </Typography>
           </Grid>
+
         </Grid>
-        </Grid>
-        <Grid item container direction="row" justifyContent="space-between"    style={{ marginBottom: "20em" }}>
+      </Grid>
+
+        <Grid
+        item
+        container
+        alignItems={matchesMD ? "center" : undefined}
+        direction={matchesMD ? "column" : "row"}
+        justify="space-between"
+        style={{ marginBottom: "15em" }}
+        className={classes.mainContainer}
+      >
+        <Grid item container direction="row" justifyContent="space-between">
           <Grid item container className={classes.itemContainer} md>
-          <Grid item container direction="column" md>
-            <Grid item>
-              <Typography variant="h4" >
+            <Grid item container direction="column" md>
+              <Grid item>
+                <Typography variant="h4" paragraph>
                 Automation
-              </Typography>
+                </Typography>
+              </Grid>
+              <Grid item >
+                <Typography variant="body1" paragraph>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem eveniet, 
+                  et amet sunt at maiores, beatae error perferendis quisquam delectus autem fugiat iusto,
+                </Typography>
+              </Grid>
+              <Grid item >
+                <Typography variant="body1" paragraph>
+           Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis tenetur natus placeat dicta, 
+           deserunt id eius deleniti impedit illum explicabo? Dignissimos inventore libero adipisci dolor 
+                </Typography>
+              </Grid>
+              <Grid item >
+                <Typography variant="body1">
+                  By utilizing digital forms and documents you can remove these
+               
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Typography
-                variant="body1"
-                paragraph
-             
-              >
-                Why waste time when you don’t have to?
-              </Typography>
-              <Typography
-                variant="body1"
-                paragraph
-              
-              >
-                We can help you identify processes with time or event based
-                actions which can now easily be automated.
-              </Typography>
-              <Typography
-                variant="body1"
-                paragraph
-             
-              >
-                Increasing efficiency increases profits, leaving you more time
-                to focus on your business, not busywork.
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid item md>
+            <Grid item md>
             <Lottie
               options={automationOptions}
               isStopped={true}
               style={{ maxHeight: 290, maxWidth: 280 }}
             />
           </Grid>
-        </Grid>
-        </Grid>
-        <Grid
-          item
-          container
-          className={classes.itemContainer}
-       
-          md
-        >
-          <Grid item md>
-            <Lottie
-              options={uxOptions}
-              isStopped={true}
-              style={{ maxHeight: 310, maxWidth: 155 }}
-            />
           </Grid>
-    </Grid>
+          <Grid item container className={classes.itemContainer} md>
+            <Grid item md>
+              <Lottie options={uxOptions}
+                isStopped={true}
+                style={{ maxHeight: 310, maxWidth: 155 }} />
+            </Grid>
+            <Grid item container direction="column" md>
+              <Grid item>
+                <Typography variant="h4" paragraph align="right" >
+                 User Experience Design
+                </Typography>
+              </Grid>
+              <Typography
+                variant="body1"
+                paragraph align="right" >
+               Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Amet minus quibusdam quisquam quasi necessitatibus fugit excepturi commodi culpa veniam placeat? 
+               Maiores laboriosam voluptatem ea quasi harum aspernatur consectetur at consequatur!
+              </Typography>
+
+            </Grid>
+
+          </Grid>
+        </Grid>
+        </Grid>
+
+
+
+
+
+      <Grid item>
+        <CallToAction />
+      </Grid>
+
+
+
+   
     </Grid>
 
   )

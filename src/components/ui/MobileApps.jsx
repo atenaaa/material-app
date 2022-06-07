@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { Grid } from "@mui/material";
 import { Typography } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
-// import { Hidden } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 
 import backArrow from "../../assets/backArrow.svg"
@@ -13,38 +12,38 @@ import forwardArrow from "../../assets/forwardArrow.svg"
 import swiss from "../../assets/swissKnife.svg"
 import access from "../../assets/extendAccess.svg"
 import engagment from "../../assets/increaseEngagement.svg"
-import integrationAnimation  from "../../animations/integrationAnimation/data.json";
- 
+import integrationAnimation from "../../animations/integrationAnimation/data.json";
+import CallToAction from "./CallToAction";
+
 const useStyle = makeStyles((theme) => ({
-    heading: {
-        maxWidth: "40em",
-      },
-      mainContainer: {
+  heading: {
+    maxWidth: "40em",
+  },
+  mainContainer: {
     paddingLeft: "5em",
     paddingRight: "5em",
     paddingTop: "2em",
     paddingBottom: "10em"
   },
-  rowContainer:{
+  rowContainer: {
     paddingLeft: "5em",
     paddingRight: "5em",
-    [theme.breakpoints.down("sm")]:{
-        paddingLeft: "1.5em",
-        paddingRight: "1.5em",
+    [theme.breakpoints.down("sm")]: {
+      paddingLeft: "1.5em",
+      paddingRight: "1.5em",
     }
   }
 }))
- 
 
- 
- 
- function MobileApps({ setSelectedIndex }) {
-    const classes = useStyle()
-    const theme = useTheme();
-    // const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
-    const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
-    
-    
+
+
+
+function MobileApps({ setSelectedIndex }) {
+  const classes = useStyle()
+  const theme = useTheme();
+  const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
+
+
   const defaultOptions = {
     loop: true,
     autoplay: false,
@@ -53,7 +52,7 @@ const useStyle = makeStyles((theme) => ({
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-   return(
+  return (
     <Grid container direction="column">
       <Grid
         item
@@ -78,7 +77,7 @@ const useStyle = makeStyles((theme) => ({
             <img src={backArrow} alt="Back to Services Page" />
           </IconButton>
         </Grid>
-        
+
         <Grid item container direction="column" className={classes.heading}>
           <Grid item>
             <Typography align={matchesMD ? "center" : undefined} variant="h2">
@@ -139,85 +138,87 @@ const useStyle = makeStyles((theme) => ({
             />
           </IconButton>
         </Grid>
+      </Grid>
+      <Grid item container direction={matchesMD ? "column" : "row"} className={classes.rowContainer}>
+        <Grid item container direction="column" md>
+          <Grid item>
+            <Typography variant="h4" gutterBottom>
+              integration
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="body1" paragraph>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora corporis, sunt dignissimos esse voluptatem nesciunt omnis distinctio
+              itaque nam corrupti assumenda ex laborum, ipsam, velit dolorum exercitationem saepe asperiores quaerat.
+            </Typography>
+            <Typography variant="body1" paragraph>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora corporis, sunt dignissimos esse voluptatem nesciunt omnis distinctio
+              itaque nam corrupti assumenda ex laborum, ipsam, velit dolorum exercitationem saepe asperiores quaerat.
+            </Typography>
+          </Grid>
+
         </Grid>
-        <Grid item container direction={matchesMD?"column":"row"} className={classes.rowContainer}>
-            <Grid item container direction="column" md>
-                <Grid item>
-                    <Typography variant="h4" gutterBottom>
-                        integration
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    <Typography variant="body1"  paragraph>
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora corporis, sunt dignissimos esse voluptatem nesciunt omnis distinctio
-                      itaque nam corrupti assumenda ex laborum, ipsam, velit dolorum exercitationem saepe asperiores quaerat.
-                    </Typography>
-                    <Typography variant="body1"  paragraph>
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora corporis, sunt dignissimos esse voluptatem nesciunt omnis distinctio
-                      itaque nam corrupti assumenda ex laborum, ipsam, velit dolorum exercitationem saepe asperiores quaerat.
-                    </Typography>
-                </Grid>
-              
-            </Grid>
-            <Grid item  md>
-                    <Lottie options={defaultOptions} isStopped={true} style={{maxWidth:"20em"}} ></Lottie>
-                    </Grid>
-                    <Grid item container direction="column" md>
-                <Grid item>
-                    <Typography align="right" variant="h4" gutterBottom>
-                        simple platform
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    <Typography align="right" variant="body1"  paragraph>
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora corporis, sunt dignissimos esse voluptatem nesciunt omnis distinctio
-                      itaque nam corrupti assumenda ex laborum, ipsam, velit dolorum exercitationem saepe asperiores quaerat.
-                    </Typography>
-                    <Typography align="right" variant="body1"  paragraph>
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora corporis, 
-                     sunt dignissimos esse voluptatem nesciunt omnis distinctio
-                      itaque nam corrupti assumenda ex laborum, ipsam 
-                    </Typography>
-                </Grid>
-              
-            </Grid>
+        <Grid item md>
+          <Lottie options={defaultOptions} isStopped={true} style={{ maxWidth: "20em" }} ></Lottie>
         </Grid>
-        <Grid item container direction={matchesMD?"column":"row"} className={classes.rowContainer}>
+        <Grid item container direction="column" md>
+          <Grid item>
+            <Typography align="right" variant="h4" gutterBottom>
+              simple platform
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography align="right" variant="body1" paragraph>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora corporis, sunt dignissimos esse voluptatem nesciunt omnis distinctio
+              itaque nam corrupti assumenda ex laborum, ipsam, velit dolorum exercitationem saepe asperiores quaerat.
+            </Typography>
+            <Typography align="right" variant="body1" paragraph>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora corporis,
+              sunt dignissimos esse voluptatem nesciunt omnis distinctio
+              itaque nam corrupti assumenda ex laborum, ipsam
+            </Typography>
+          </Grid>
+
+        </Grid>
+      </Grid>
+      <Grid item container direction={matchesMD ? "column" : "row"} className={classes.rowContainer}>
         <Grid item container direction="column" alignItems="center" md>
-        <Grid item>
-                    <Typography align="center" variant="h4" gutterBottom>
-                       Extend Fuunctionality
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    <img src={swiss} alt="swiss" />
-                    </Grid>
-            </Grid>
-            <Grid item container direction="column" alignItems="center" md>
-        <Grid item>
-                    <Typography align="center" variant="h4" gutterBottom>
-                       Extend Access
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    <img src={access} alt="access" style={{maxWidth:"25em"}}/>
-                    </Grid>
-            </Grid>
-            <Grid item container direction="column" alignItems="center" md>
-        <Grid item>
-                    <Typography align="center" variant="h4" gutterBottom>
-                      Increase  
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    <img src={engagment} alt="swiss" />
-                    </Grid>
-            </Grid>
-            </Grid>
+          <Grid item>
+            <Typography align="center" variant="h4" gutterBottom>
+              Extend Fuunctionality
+            </Typography>
+          </Grid>
+          <Grid item>
+            <img src={swiss} alt="swiss" />
+          </Grid>
         </Grid>
- 
-   )
- }
- 
- export default MobileApps;
- 
+        <Grid item container direction="column" alignItems="center" md>
+          <Grid item>
+            <Typography align="center" variant="h4" gutterBottom>
+              Extend Access
+            </Typography>
+          </Grid>
+          <Grid item>
+            <img src={access} alt="access" style={{ maxWidth: "25em" }} />
+          </Grid>
+        </Grid>
+        <Grid item container direction="column" alignItems="center" md>
+          <Grid item>
+            <Typography align="center" variant="h4" gutterBottom>
+              Increase
+            </Typography>
+          </Grid>
+          <Grid item>
+            <img src={engagment} alt="swiss" />
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item>
+        <CallToAction />
+      </Grid>
+    </Grid>
+
+  )
+}
+
+export default MobileApps;
