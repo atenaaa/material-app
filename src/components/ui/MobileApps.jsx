@@ -2,10 +2,11 @@ import React from "react";
 import Lottie from "react-lottie";
 import { makeStyles, useTheme } from "@mui/styles";
 import { Link } from "react-router-dom";
-import { Grid } from "@mui/material";
+import { Grid  } from "@mui/material";
 import { Typography } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
+import { Hidden } from "@mui/material";
 
 import backArrow from "../../assets/backArrow.svg"
 import forwardArrow from "../../assets/forwardArrow.svg"
@@ -14,6 +15,7 @@ import access from "../../assets/extendAccess.svg"
 import engagment from "../../assets/increaseEngagement.svg"
 import integrationAnimation from "../../animations/integrationAnimation/data.json";
 import CallToAction from "./CallToAction";
+
 
 const useStyle = makeStyles((theme) => ({
   heading: {
@@ -62,8 +64,8 @@ function MobileApps({ setSelectedIndex }) {
         className={classes.mainContainer}
 
       >
-
-        <Grid
+        <Hidden mdDown>
+              <Grid
           item
           className={classes.arrowContainer}
           style={{ marginRight: "1em", marginLeft: "-3.5em" }}
@@ -77,6 +79,9 @@ function MobileApps({ setSelectedIndex }) {
             <img src={backArrow} alt="Back to Services Page" />
           </IconButton>
         </Grid>
+        </Hidden>
+
+    
 
         <Grid item container direction="column" className={classes.heading}>
           <Grid item>
@@ -124,8 +129,8 @@ function MobileApps({ setSelectedIndex }) {
             </Typography>
           </Grid>
         </Grid>
-
-        <Grid item className={classes.arrowContainer}>
+        <Hidden mdDown>
+            <Grid item className={classes.arrowContainer}>
           <IconButton
             style={{ backgroundColor: "transparent" }}
             component={Link}
@@ -138,6 +143,9 @@ function MobileApps({ setSelectedIndex }) {
             />
           </IconButton>
         </Grid>
+        </Hidden>
+
+      
       </Grid>
       <Grid item container direction={matchesMD ? "column" : "row"} className={classes.rowContainer}>
         <Grid item container direction="column" md>

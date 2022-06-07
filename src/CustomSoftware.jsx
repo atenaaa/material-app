@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { Typography } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { Hidden } from "@mui/material";
 
 import roots from "../src/assets/root.svg"
 
@@ -94,12 +95,11 @@ export default function CustomSoftware({ setSelectedIndex }) {
         item
         container
         direction="row"
-        justify={matchesMD ? "center" : undefined}
+        justifyContent={matchesMD ? "center" : undefined}
         className={classes.mainContainer}
-
       >
-
-        <Grid
+        <Hidden mdDown>
+            <Grid
           item
           className={classes.arrowContainer}
           style={{ marginRight: "1em", marginLeft: "-3.5em" }}
@@ -113,7 +113,7 @@ export default function CustomSoftware({ setSelectedIndex }) {
             <img src={backArrow} alt="Back to Services Page" />
           </IconButton>
         </Grid>
-
+        </Hidden>
         <Grid item container direction="column" className={classes.heading}>
           <Grid item>
             <Typography align={matchesMD ? "center" : undefined} variant="h2">
@@ -160,8 +160,8 @@ export default function CustomSoftware({ setSelectedIndex }) {
             </Typography>
           </Grid>
         </Grid>
-
-        <Grid item className={classes.arrowContainer}>
+<Hidden mdDown>
+  <Grid item className={classes.arrowContainer}>
           <IconButton
             style={{ backgroundColor: "transparent" }}
             component={Link}
@@ -174,6 +174,8 @@ export default function CustomSoftware({ setSelectedIndex }) {
             />
           </IconButton>
         </Grid>
+</Hidden>
+        
         {/* img grid */}
         <Grid item container direction="row" justifyContent="center" style={{ marginTop: "15em", marginBottom: "20em" }}>
 
@@ -211,7 +213,10 @@ export default function CustomSoftware({ setSelectedIndex }) {
           </Grid>
 
         </Grid>
-        <Grid item container direction="row" justifyContent="space-between">
+        <Grid item container 
+        alignItems={matchesMD ?"center":undefined}
+        direction={matchesMD?"row":"column" }
+        justifyContent="space-between">
           <Grid item container className={classes.itemContainer} md>
             <Grid item container direction="column" md>
               <Grid item>
@@ -309,7 +314,8 @@ export default function CustomSoftware({ setSelectedIndex }) {
         style={{ marginBottom: "15em" }}
         className={classes.mainContainer}
       >
-        <Grid item container direction="row" justifyContent="space-between">
+        <Grid item container   alignItems={matchesMD ?"center":undefined}
+        direction={matchesMD?"column":"row" } justifyContent="space-between">
           <Grid item container className={classes.itemContainer} md>
             <Grid item container direction="column" md>
               <Grid item>
