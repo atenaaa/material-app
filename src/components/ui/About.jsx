@@ -4,6 +4,9 @@ import { makeStyles, useTheme } from "@mui/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Avatar from '@mui/material/Avatar';
 
+
+import CallToAction from "../ui/CallToAction"
+
 import history from "../../assets/history.svg"
 import profile from "../../assets/founder.jpg"
 import yearbook from "../../assets/yearbook.svg"
@@ -184,6 +187,9 @@ export default function About() {
               </Grid>
         </Grid>
         </Grid>
+        <Grid item>
+        <CallToAction   />
+      </Grid>
     </Grid>
   )
 }
