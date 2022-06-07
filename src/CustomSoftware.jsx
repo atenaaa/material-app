@@ -85,6 +85,7 @@ export default function CustomSoftware({ setSelectedIndex }) {
   const classes = useStyle()
   const theme = useTheme();
   const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
+  const matchesSM =useMediaQuery(theme.breakpoints.down("sm"))
 
 
 
@@ -181,7 +182,7 @@ export default function CustomSoftware({ setSelectedIndex }) {
 
           <Grid item container direction="column" md style={{ maxWidth: "40em", textAlign: "center" }}>
             <Grid item >
-              <Typography variant="h4">
+              <Typography variant="h4" style={{marginBottom:"0.5em"}} >
                 Save Energy
               </Typography>
               <Grid item >
@@ -191,8 +192,8 @@ export default function CustomSoftware({ setSelectedIndex }) {
           </Grid>
           {/* 2 */}
           <Grid item container direction="column" md style={{ maxWidth: "40em", textAlign: "center" }}>
-            <Grid item >
-              <Typography variant="h4">
+            <Grid item style={{marginBottom:matchesMD?"10em":0,marginTop:matchesMD?"10em":0}}>
+              <Typography variant="h4" style={{marginBottom:"0.5em" }}>
                 Save Time
               </Typography>
               <Grid item >
@@ -203,7 +204,7 @@ export default function CustomSoftware({ setSelectedIndex }) {
           {/* 3 */}
           <Grid item container direction="column" md style={{ maxWidth: "40em", textAlign: "center" }}>
             <Grid item >
-              <Typography variant="h4">
+              <Typography variant="h4"style={{marginBottom: "0.5em" }}>
                 Save Mony
               </Typography>
               <Grid item >
@@ -215,29 +216,29 @@ export default function CustomSoftware({ setSelectedIndex }) {
         </Grid>
         <Grid item container 
         alignItems={matchesMD ?"center":undefined}
-        direction={matchesMD?"row":"column" }
-        justifyContent="space-between">
-          <Grid item container className={classes.itemContainer} md>
+        direction={matchesMD?"column":"row" }
+        justifyContent="space-around">
+          <Grid item container className={classes.itemContainer} style={{marginBottom:matchesMD?"15em":0}} md>
             <Grid item container direction="column" md>
               <Grid item>
-                <Typography variant="h4" paragraph>
+                <Typography variant="h4" paragraph  align={matchesSM ? "center" : "right"}>
                   Digital Documents & Data
                 </Typography>
               </Grid>
               <Grid item >
-                <Typography variant="body1" paragraph>
+                <Typography variant="body1" paragraph align={matchesSM ? "center" : "right"}>
                   Reduce Errors. Reduce Waste. Reduce Costs.
                 </Typography>
               </Grid>
               <Grid item >
-                <Typography variant="body1" paragraph>
+                <Typography variant="body1" paragraph  align={matchesSM ? "center" : "right"}>
                   Billions are spent annually on the purchasing, printing, and
                   distribution of paper. On top of the massive environmental
                   impact this has, it causes harm to your bottom line as well.
                 </Typography>
               </Grid>
               <Grid item >
-                <Typography variant="body1">
+                <Typography variant="body1"  align={matchesSM ? "center" : "right"}>
                   By utilizing digital forms and documents you can remove these
                   obsolete expenses, accelerate your communication, and help the
                   Earth.
@@ -248,7 +249,8 @@ export default function CustomSoftware({ setSelectedIndex }) {
               <Lottie options={documentsOptions} isStopped style={{ maxHeight: 275, maxWidth: 275, minHeight: 250 }} />
             </Grid>
           </Grid>
-          <Grid item container className={classes.itemContainer} md>
+          <Grid item container className={classes.itemContainer} md 
+          direction={matchesMD ? "column" : " row"}>
             <Grid item md>
               <Lottie options={scaleOptions}
                 isStopped={true}
@@ -256,13 +258,13 @@ export default function CustomSoftware({ setSelectedIndex }) {
             </Grid>
             <Grid item container direction="column" md>
               <Grid item>
-                <Typography variant="h4" paragraph align="right" >
+                <Typography variant="h4" paragraph align={matchesSM ? "center" : "right"}>
                   Scale
                 </Typography>
               </Grid>
               <Typography
                 variant="body1"
-                paragraph align="right" >
+                paragraph align={matchesSM ? "center" : "right"} >
                 Whether you’re a large brand, just getting started, or taking
                 off right now, our application architecture ensures pain-free
                 growth and reliability.
@@ -280,7 +282,7 @@ export default function CustomSoftware({ setSelectedIndex }) {
         style={{ marginBottom: "10em" }}
         className={classes.rowContainer}
       >
-        <Grid item container direction="column" alignItems="center">
+        <Grid  item container direction="column" alignItems="center">
           <Grid item>
             <img
               src={roots}
@@ -289,13 +291,13 @@ export default function CustomSoftware({ setSelectedIndex }) {
             />
           </Grid>
           <Grid item className={classes.itemContainer}>
-            <Typography variant="h4" align="center" gutterBottom>
+            <Typography variant="h4" align={matchesMD ? "center" : "right"} gutterBottom>
               Root-Cause Analysis
             </Typography>
-            <Typography variant="body1" align="center" paragraph>
+            <Typography variant="body1" align={matchesMD ? "center" : "right"} paragraph>
               Many problems are merely symptoms of larger, underlying issues.
             </Typography>
-            <Typography variant="body1" align="center" paragraph>
+            <Typography variant="body1" align={matchesMD ? "center" : "right"} paragraph>
               We can help you thoroughly examine all areas of your business to
               develop a holistic plan for the most effective implementation of
               technology.
@@ -309,84 +311,76 @@ export default function CustomSoftware({ setSelectedIndex }) {
         item
         container
         alignItems={matchesMD ? "center" : undefined}
-        direction={matchesMD ? "column" : "row"}
-        justify="space-between"
-        style={{ marginBottom: "15em" }}
+        direction={matchesMD ? "row" : "column"}
+        justifyContent="space-around"
+        style={{ marginBottom: "10em" }}
         className={classes.mainContainer}
       >
-        <Grid item container   alignItems={matchesMD ?"center":undefined}
-        direction={matchesMD?"column":"row" } justifyContent="space-between">
-          <Grid item container className={classes.itemContainer} md>
+      
+          <Grid item container
+          style={{marginBottom:matchesMD?"15em":0, justifyContent:matchesMD?"center":undefined,}} 
+          className={classes.itemContainer} md dir='rtl'>
+
+         <Grid item md>
+            <Lottie
+              options={automationOptions}
+              isStopped={true}
+              style={{ maxHeight: 290, maxWidth: 280 ,marginBottom:matchesMD?"5em":0}}
+            />
+          </Grid>
             <Grid item container direction="column" md>
               <Grid item>
-                <Typography variant="h4" paragraph>
+                <Typography variant="h4" paragraph align={matchesMD ? "center" : "right"}>
                 Automation
                 </Typography>
               </Grid>
               <Grid item >
-                <Typography variant="body1" paragraph>
+                <Typography variant="body1" paragraph align={matchesSM ? "center" : "right"}>
                   Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem eveniet, 
                   et amet sunt at maiores, beatae error perferendis quisquam delectus autem fugiat iusto,
                 </Typography>
               </Grid>
               <Grid item >
-                <Typography variant="body1" paragraph>
+                <Typography variant="body1" paragraph align={matchesSM ? "center" : "right"}>
            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis tenetur natus placeat dicta, 
            deserunt id eius deleniti impedit illum explicabo? Dignissimos inventore libero adipisci dolor 
                 </Typography>
               </Grid>
               <Grid item >
-                <Typography variant="body1">
+                <Typography variant="body1" align={matchesSM ? "center" : "right"}>
                   By utilizing digital forms and documents you can remove these
                
                 </Typography>
               </Grid>
             </Grid>
-            <Grid item md>
-            <Lottie
-              options={automationOptions}
-              isStopped={true}
-              style={{ maxHeight: 290, maxWidth: 280 }}
-            />
+           
           </Grid>
-          </Grid>
-          <Grid item container className={classes.itemContainer} md>
-            <Grid item md>
+          <Grid item container className={classes.itemContainer} md  justifyContent={matchesMD?"center":undefined}>
+            <Grid item md  >
               <Lottie options={uxOptions}
                 isStopped={true}
-                style={{ maxHeight: 310, maxWidth: 155 }} />
+                style={{ maxHeight: 310, maxWidth: 155 ,marginBottom:matchesMD?"5em":0 }} />
             </Grid>
             <Grid item container direction="column" md>
               <Grid item>
-                <Typography variant="h4" paragraph align="right" >
+                <Typography variant="h4" paragraph align={matchesMD ? "center" : "right"} >
                  User Experience Design
                 </Typography>
               </Grid>
               <Typography
                 variant="body1"
-                paragraph align="right" >
+                paragraph align={matchesSM ? "center" : "right"} >
                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 Amet minus quibusdam quisquam quasi necessitatibus fugit excepturi commodi culpa veniam placeat? 
                Maiores laboriosam voluptatem ea quasi harum aspernatur consectetur at consequatur!
               </Typography>
-
             </Grid>
-
-          </Grid>
+        
         </Grid>
         </Grid>
-
-
-
-
-
       <Grid item>
         <CallToAction />
       </Grid>
-
-
-
-   
     </Grid>
 
   )

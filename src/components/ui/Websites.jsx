@@ -1,10 +1,12 @@
+
 import { Grid } from "@mui/material";
 import { Typography } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import { makeStyles, useTheme } from "@mui/styles";
 import { Link } from "react-router-dom";
-import React from "react";
+import { Hidden } from "@mui/material";
+
 
 import backArrow from "../../assets/backArrow.svg"
 import forwardArrow from "../../assets/forwardArrow.svg"
@@ -13,7 +15,7 @@ import seo from "../../assets/seo.svg";
 import outReach from "../../assets/outreach.svg"
 import ecommerce from "../../assets/ecommerce.svg"
 import CallToAction from "./CallToAction";
- 
+
 
 const useStyle = makeStyles((theme) => ({
   heading: {
@@ -33,8 +35,8 @@ const useStyle = makeStyles((theme) => ({
       paddingRight: "1.5em",
     }
   },
-  paragraphContainer:{
-    maxWidth:"30em"
+  paragraphContainer: {
+    maxWidth: "30em"
   }
 }))
 
@@ -56,8 +58,8 @@ function Websites({ setSelectedIndex }) {
         className={classes.mainContainer}
 
       >
-
-        <Grid
+        <Hidden mdDown>  
+         <Grid
           item
           className={classes.arrowContainer}
           style={{ marginRight: "1em", marginLeft: "-3.5em" }}
@@ -71,6 +73,7 @@ function Websites({ setSelectedIndex }) {
             <img src={backArrow} alt="Back to ios android Page" />
           </IconButton>
         </Grid>
+        </Hidden>
 
         <Grid item container direction="column" className={classes.heading}>
           <Grid item>
@@ -118,7 +121,8 @@ function Websites({ setSelectedIndex }) {
             </Typography>
           </Grid>
         </Grid>
-
+        <Hidden mdDown>
+          
         <Grid item className={classes.arrowContainer}>
           <IconButton
             style={{ backgroundColor: "transparent" }}
@@ -132,117 +136,119 @@ function Websites({ setSelectedIndex }) {
             />
           </IconButton>
         </Grid>
+        </Hidden>
+
       </Grid>
-      <Grid item container 
-      direction={matchesSM?"column":"row"}
-       alignItems="center" 
-       style={{marginTop:'12em'}}
-      className={classes.rowContainer}
+      <Grid item container
+        direction={matchesSM ? "column" : "row"}
+        alignItems="center"
+        style={{ marginTop: '12em' }}
+        className={classes.rowContainer}
       >
         <Grid item >
           <Grid container direction="column">
-          <Grid item >
-            <Typography variant="h4" gutterBottom>Analiytes</Typography>
-          </Grid>
-          <Grid item >
-             <img src={analytics} alt="" style={{marginLeft:"-2.75em"}}/>
-          </Grid>
+            <Grid item >
+              <Typography variant="h4" gutterBottom>Analiytes</Typography>
+            </Grid>
+            <Grid item >
+              <img src={analytics} alt="" style={{ marginLeft: "-2.75em" }} />
+            </Grid>
           </Grid>
         </Grid>
-        <Grid item  className={classes.paragraphContainer}>
-            <Typography variant="body1" align={matchesSM ? "center":undefined}>
-               Lorem ipsum dolor sit amet consectetur adipisicing elit.
-               Maiores minus, nam voluptatum molestiae libero modi ipsam tempore, 
-               ullam explicabo vitae nesciunt enim. Hic facere saepe earum,
-               perspiciatis tempore iusto praesentium!
-            </Typography>
-          </Grid>
+        <Grid item className={classes.paragraphContainer}>
+          <Typography variant="body1" align={matchesSM ? "center" : undefined}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Maiores minus, nam voluptatum molestiae libero modi ipsam tempore,
+            ullam explicabo vitae nesciunt enim. Hic facere saepe earum,
+            perspiciatis tempore iusto praesentium!
+          </Typography>
+        </Grid>
       </Grid>
 
-      <Grid item container 
-         direction={matchesSM?"column":"row"}
-      alignItems="center"
-       justifyContent="flex-end"
-       style={{marginTop:'15em', marginBottom:"15em"}}
-       className={classes.rowContainer}>
+      <Grid item container
+        direction={matchesSM ? "column" : "row"}
+        alignItems="center"
+        justifyContent="flex-end"
+        style={{ marginTop: '15em', marginBottom: "15em" }}
+        className={classes.rowContainer}>
         <Grid item >
           <Grid container direction="column">
-          <Grid item >
-            <Typography variant="h4" gutterBottom alignItems="center">E-Commerce</Typography>
-          </Grid>
-          <Grid item >
-             <img src={ecommerce} alt="ecommerce" style={{marginLeft:"-2.75em"}}/>
-          </Grid>
+            <Grid item >
+              <Typography variant="h4" gutterBottom alignItems="center">E-Commerce</Typography>
+            </Grid>
+            <Grid item >
+              <img src={ecommerce} alt="ecommerce" style={{ marginLeft: "-2.75em" }} />
+            </Grid>
           </Grid>
         </Grid>
-        <Grid item  style={{marginLeft:"1em"}}
+        <Grid item style={{ marginLeft: "1em" }}
           className={classes.paragraphContainer}>
-            <Typography variant="body1" paragraph align={matchesSM ? "center":undefined}>
-               Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </Typography>
-            <Typography variant="body1" paragraph align={matchesSM ? "center":undefined}>
-               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Quod similique laborum tempore deleniti nostrum aut reiciendis molestiae itaque
- 
-            </Typography>
-          </Grid>
+          <Typography variant="body1" paragraph align={matchesSM ? "center" : undefined}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </Typography>
+          <Typography variant="body1" paragraph align={matchesSM ? "center" : undefined}>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            Quod similique laborum tempore deleniti nostrum aut reiciendis molestiae itaque
+
+          </Typography>
+        </Grid>
       </Grid>
 
 
       <Grid item container
-        direction={matchesSM?"column":"row"}
-       alignItems="center" className={classes.rowContainer}>
+        direction={matchesSM ? "column" : "row"}
+        alignItems="center" className={classes.rowContainer}>
         <Grid item >
           <Grid container direction="column">
-          <Grid item >
-            <Typography variant="h4" gutterBottom alignItems="center">OutReach</Typography>
-          </Grid>
-          <Grid item >
-             <img src={outReach} alt="megaphone" style={{marginLeft:"-2.75em"}}/>
-          </Grid>
+            <Grid item >
+              <Typography variant="h4" gutterBottom alignItems="center">OutReach</Typography>
+            </Grid>
+            <Grid item >
+              <img src={outReach} alt="megaphone" style={{ marginLeft: "-2.75em" }} />
+            </Grid>
           </Grid>
         </Grid>
-        <Grid item style={{marginLeft:"1em"}} 
+        <Grid item style={{ marginLeft: "1em" }}
           className={classes.paragraphContainer}>
-            <Typography variant="body1" align={matchesSM ? "center":undefined}>
-               Lorem ipsum dolor sit amet consectetur adipisicing elit.
-               Maiores minus, nam voluptatum molestiae libero modi ipsam tempore, 
-               ullam explicabo vitae nesciunt enim. Hic facere saepe earum,
-          
-            </Typography>
-          </Grid>
+          <Typography variant="body1" align={matchesSM ? "center" : undefined}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Maiores minus, nam voluptatum molestiae libero modi ipsam tempore,
+            ullam explicabo vitae nesciunt enim. Hic facere saepe earum,
+
+          </Typography>
+        </Grid>
       </Grid>
 
-      <Grid item container  
-        direction={matchesSM?"column":"row"} 
-        style={{marginTop:'15em', marginBottom:"15em"}} 
-        alignItems="center" 
-        justifyContent="flex-end" 
+      <Grid item container
+        direction={matchesSM ? "column" : "row"}
+        style={{ marginTop: '15em', marginBottom: "15em" }}
+        alignItems="center"
+        justifyContent="flex-end"
         className={classes.rowContainer}>
         <Grid item >
           <Grid container direction="column">
-          <Grid item >
-            <Typography variant="h4" gutterBottom alignItems="center">Search Engine <br/>Obtimization
-            </Typography>
-          </Grid>
-          <Grid item >
-             <img src={seo} alt="website sending" style={{marginLeft:"-2.75em"}}/>
-          </Grid>
+            <Grid item >
+              <Typography variant="h4" gutterBottom alignItems="center">Search Engine <br />Obtimization
+              </Typography>
+            </Grid>
+            <Grid item >
+              <img src={seo} alt="website sending" style={{ marginLeft: "-2.75em" }} />
+            </Grid>
           </Grid>
         </Grid>
-        <Grid item  style={{marginLeft:"1em"}}
-         className={classes.paragraphContainer}>
-        <Typography variant="body1" paragraph align={matchesSM ? "center":undefined}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto ipsum aspernatur dolor error sint deleniti in, enim reprehenderit, 
-        
-            </Typography>
-            <Typography variant="body1" paragraph align={matchesSM ? "center":undefined}>
-               Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </Typography>
-            <Typography variant="body1" paragraph align={matchesSM ? "center":undefined}>
+        <Grid item style={{ marginLeft: "1em" }}
+          className={classes.paragraphContainer}>
+          <Typography variant="body1" paragraph align={matchesSM ? "center" : undefined}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto ipsum aspernatur dolor error sint deleniti in, enim reprehenderit,
-            </Typography>
-          </Grid>
+
+          </Typography>
+          <Typography variant="body1" paragraph align={matchesSM ? "center" : undefined}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </Typography>
+          <Typography variant="body1" paragraph align={matchesSM ? "center" : undefined}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto ipsum aspernatur dolor error sint deleniti in, enim reprehenderit,
+          </Typography>
+        </Grid>
       </Grid>
       <Grid item>
         <CallToAction />
