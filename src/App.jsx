@@ -15,6 +15,7 @@
  import Estimate from './components/ui/Estimate';
  import Revolution from './components/ui/Revolution';
  import MobileApps from "./components/ui/MobileApps"
+ import Websites from './components/ui/Websites';
 
 function App() {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -28,7 +29,7 @@ function App() {
          <Route  path="/services" element={<Services />}/> 
          <Route  path="/customsoftware" element={<CustomSoftware selectedIndex={selectedIndex}/>}/> 
          <Route  path="/mobileapps" element={<MobileApps/>}/> 
-         <Route  path="/websites" element={<div>websites</div>}/> 
+         <Route  path="/websites" element={<Websites/>}/> 
          <Route  path="/revolution" element={<Revolution/>}/> 
          <Route  path="/about" element={<About/>}/> 
          <Route  path="/contact" element={<Contact/>}/> 
